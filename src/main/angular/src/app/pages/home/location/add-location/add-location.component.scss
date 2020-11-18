@@ -1,0 +1,102 @@
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.heading{
+  font-size: 30px;
+  margin: 20px;
+}
+.user-container{
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  padding: 10px;
+  margin: 10px auto;
+  &.arms-lines {
+    margin-bottom: 25px;
+    box-shadow: 0 0 3px #ddd;
+  }
+}
+.value{
+  position: absolute;
+    left: 390px;
+}
+.location_form {
+  border: solid 1px #ddd;
+  margin: 0 0 15px 0;
+  padding: 15px 0;
+  box-shadow: 0 0 5px #ddd;
+
+  
+
+}
+.form-group .check input[type=checkbox]{
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 22;
+  cursor: pointer;
+}
+.form-group .check input[type=checkbox] + label:after {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: solid 1px #999;
+  position: absolute;
+  left: 0;
+  font-family: FontAwesome;
+  top: 0;
+  line-height: 20px;
+  cursor: pointer;
+  text-align: center;
+  color: #ef4000;
+}
+.form-group .check input[type=checkbox]:checked + label:after{
+  content: "\f00c";
+}
+.form-group .check{
+  position: relative;
+  margin-top: 38px;
+  border-bottom: solid 1px #ddd;
+}
+.form-group .check label{
+  padding-left: 30px;
+  cursor: pointer;
+}
+.select_arms {
+  margin: 15px;
+  border: solid 1px #ddd;
+  padding: 15px;
+  box-shadow: 0 0 5px #ddd;
+}
+.form-group {
+  label{
+    font-size: 16px;
+  }
+}
+.tc_check {
+  .form-group {
+     margin-bottom: 0;
+    .check{
+      border-bottom: none;
+      margin-top: 10px;
+      
+    }
+  }
+}
+
+.submit_btn{
+  .form-group{
+    margin-bottom: 0;
+  }
+}

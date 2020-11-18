@@ -1,0 +1,105 @@
+<div class="container mt-5" *ngIf="loader1">
+  <div class="row">
+    <div class="col-12 ">
+      <img src="assets/gif2.gif" class="img-fluid d-block mx-auto mt-5" alt="">
+    </div>
+  </div>
+</div>
+<div class="tab_content" *ngIf="!loader1">
+  <div class="equipment_details_main flipInY" *ngFor="let item of equipmentGroup;index as i">
+    <ng-container *ngIf="equipmentGroup.length">
+      <div class=" equipment_header d-flex justify-content-between">
+        <h4 class="lt top_tooltip"> {{item.equipmentTypeCode}}
+          <p class="badge badge-pill badge-danger m-0">{{item.availableCount}}</p>
+          <span>Available Count</span>
+        </h4>
+        <div class="header_btn">
+          <button class="top_tooltip">
+            <i class="fa fa-eye" (click)="getEquipmentCount(item)" data-dismiss="modal" data-toggle="modal" data-target=".bd-example-modal-lg"></i>
+            <span>View Equipment</span>
+          </button>
+          <button class="top_tooltip" [routerLink]="['/home/equipments/',item.groupId]">
+            <i class="fa fa-pencil-square"></i>
+            <span> Update Equipment</span>
+          </button>
+          <button class="btn  top_tooltip" (click)="deleteEquipment(item,i)">
+            <i class="fa fa-trash"></i>
+            <span>Delete Equipment</span>
+          </button>
+        </div>
+      </div>
+      <div class="equipment_container">
+        <ng-container *ngFor="let attr of item.attributeValues; let i=index">
+          <div class="equipment_details" *ngIf="!attr.attribute.isSpecific">
+            <label>{{attr.attribute.name}}: </label>
+            <span>{{attr.value ? attr.value :'ND'}}</span>
+          </div>
+        </ng-container>
+        <div class="equipment_details" *ngIf="hasSpecificAttribute(item.attributeValues)">
+          <label>Has Specific Attributes: </label>
+          <span>Yes</span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="addequipment">
+    <button class="btn" routerLinkActive="router-link-active" (click)="routeCreatepage()">
+      <i>+</i>
+      <span>Add {{selectedEquipment.equipmentTypeCode}}</span>
+    </button>
+  </div>
+  <div class="no_data" *ngIf="!equipmentGroup.length">
+    <img src="assets/images/not-found.png" alt="">
+  </div>
+</div>
+
+<div class="modal_main">
+  <div class="modal fade bd-example-modal-lg p-5" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header custom-header">
+          <h5 class="modal-title">{{countGroupValue[0]?.equipmentTypeName}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body pb-0">
+          <div class="container mt-5" *ngIf="process">
+            <div class="row">
+              <div class="col-12 ">
+                <img src="assets/gif2.gif" class="img-fluid d-block mx-auto mt-5" alt="">
+              </div>
+            </div>
+          </div>
+
+          <div class="container p-0" *ngIf="!process">
+            <div class="row">
+              <div class="col-6 pk" *ngFor="let item of countGroupValue">
+                <div class="equipment_details_box mb-3 flipInY">
+                  <div class="card-header d-flex justify-content-between">
+                    <div class="sm-header">{{item.name}}</div>
+                    <!-- <button type="button" class="camera-_edit" data-dismiss="modal" style="cursor: pointer;" *ngIf='typeName==="Camera"' (click)="onCamera(item)">
+                      <i class="fa fa-pencil-square-o"></i>
+                    </button> -->
+                  </div>
+                  <div class="bg-white pt-2 pb-2 border">
+                    <ng-container *ngFor="let attr of item.attributeValues">
+                      <div class="details" *ngIf="attr.attribute.name!='Quantity'">
+                        <label>{{attr.attribute.name}}: </label>
+                        <span> {{attr.value ? attr.value : 'NA' }}</span>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="cancelBtn" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

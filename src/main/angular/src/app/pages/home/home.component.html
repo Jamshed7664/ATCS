@@ -1,0 +1,85 @@
+<div class="" id="wrapper" style="position: relative;">
+    <!-- Sidebar -->
+    <div class="" id="sidebar-wrapper">
+        <div class="list-group list-group-flush">
+            <!-- <input type="text" class="form-control mt-2" placeholder="Search"> -->
+            <div class="user">
+                <div class="user-img">
+                    <img src="assets/images/profile.webp" alt="" [routerLink]="['/home/profile']" style="cursor: pointer;">
+                </div>
+                <div class="user-name" [routerLink]="['/home/profile']" style="cursor: pointer;">
+                    <h3>{{currentUserName}}</h3>
+                    <h5>View Details</h5>
+                </div>
+            </div>
+            <a class="list-group-item list-group-item-action left_tooltip" [routerLink]="['/home/map']" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="router-link-active">
+                <label>Dashboard</label>
+                <i class="fa fa-tachometer"></i><span> Dashboard</span></a>
+            <!-- <a class="list-group-item list-group-item-action" [routerLink]="['/home/masterConfiguration']" routerLinkActive="router-link-active" >
+        <i class="fa fa-cog"></i> Master Configuration</a> -->
+            <a class="list-group-item list-group-item-action left_tooltip" style="cursor: pointer;" routerLinkActive="router-link-active" (click)="arrowPosition()" data-toggle="collapse" data-target="#demo">
+                <i class="fa fa-cog"></i> <span> Master Configuration</span>
+                <label>Master Configuration</label>
+                <i *ngIf="downArrow " class="fa fa-angle-down arrow" data-toggle="collapse" data-target="#demo"></i>
+                <i *ngIf="!downArrow" class="fa fa-angle-up arrow" data-toggle="collapse" data-target="#demo"></i>
+            </a>
+            <div class="position-relative">
+                <div id="demo" class="collapse   mt-1">
+                    <a class="list-group-item list-group-item-action border-bottom left_tooltip" *ngIf="givenAuthorities.includes('LOCATION_TYPE_CREATE')" [routerLink]="['/home/masterConfiguration/locationmaster']" routerLinkActive="router-link-active">
+                        <i class="fa fa-location-arrow"></i> <span>Location Master</span> <label>Location Master</label> </a>
+                    <a class="list-group-item list-group-item-action left_tooltip" *ngIf="givenAuthorities.includes('EQUIPMENT_TYPE_CREATE')" [routerLink]="['/home/masterConfiguration/equipmentmaster']" routerLinkActive="router-link-active">
+                        <i class="fa fa-cogs" aria-hidden="true"></i>
+                        <span>Equipment Master</span> <label>Equipment Master</label> </a>
+                </div>
+            </div>
+            <a class="list-group-item list-group-item-action left_tooltip" [routerLink]="['/home/locations']" routerLinkActive="router-link-active" *ngIf="givenAuthorities.includes('LOCATION_TYPE_CREATE')">
+                <i class="fa fa-map-marker"></i> <span>Location</span> <label>Location</label></a>
+            <a class="list-group-item list-group-item-action left_tooltip" [routerLink]="['/home/equipments']" routerLinkActive="router-link-active">
+                <i class="fa fa-plus"></i> <span> Equipment</span> <label>Equipment</label> </a>
+            <!-- <a class="list-group-item list-group-item-action" [routerLink]="['/home/camera']" routerLinkActive="router-link-active">
+                <i class="fa fa-camera"></i> Camera</a> -->
+            <a class="list-group-item list-group-item-action left_tooltip" [routerLink]="['/home/users']" routerLinkActive="router-link-active" *ngIf="givenAuthorities.includes('USER_FETCH')">
+                <i class="fa fa-users"></i> <span>Users</span> <label>Users</label> </a>
+            <a class="list-group-item list-group-item-action left_tooltip" [routerLink]="['/home/roles']" routerLinkActive="router-link-active" *ngIf="givenAuthorities.includes('ROLE_FETCH')">
+                <i class="fa fa-sitemap"></i> <span>Roles</span> <label>Roles</label></a>
+            <!-- <a class="list-group-item list-group-item-action" [routerLink]="['/home/authorities']" routerLinkActive="router-link-active"
+        *ngIf="givenAuthorities.includes('AUTHORITY_FETCH')">
+        <i class="fa fa-chain-broken"></i> Authorities</a> -->
+            <a class="list-group-item list-group-item-action left_tooltip" [routerLink]="['/home/changesPassword']" routerLinkActive="router-link-active">
+                <i class="fa fa-repeat"></i> <span> Change Password</span> <label>Change Password</label> </a>
+        </div>
+    </div>
+
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <nav class="navbar navbar-light bg-thm border-bottom">
+            <button class="btn" id="menu-toggle" (click)="menu()">
+                <!-- <i class="fa fa-bars"></i>{{myMenu?'Close Menu' :'Open Menu '}} -->
+                <img src="assets/images/nav.svg" alt="">
+
+            </button>
+
+            <div class="right_menu">
+                <ul class="">
+                    <li class="">
+                        <h6 [routerLink]="['/home/user']" (click)="clearModel()" style="cursor: pointer;" *ngIf="givenAuthorities.includes('USER_CREATE')">
+                            <i class="fa fa-user-plus"></i> Add user</h6>
+                    </li>
+                    <li class="">
+                        <h6 (click)="logout()" style="cursor: pointer;">Logout
+                            <i class="fa fa-sign-out"></i>
+                        </h6>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="middle-content">
+            <router-outlet>
+
+            </router-outlet>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>

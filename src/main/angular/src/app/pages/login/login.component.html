@@ -1,0 +1,130 @@
+<div class="wrapper">
+  <div class="user">
+    <div class="user_options-container">
+      <!-- <div class="user_options-text">
+        <div class="user_options-unregistered">
+          <div class="user_unregistered-title">
+            <img src="assets/logo.png" class="logoImage">
+          </div>
+          <h2 class="user_unregistered-text">Enforcement Configurator</h2>
+        </div>
+      </div> -->
+      <div class="user_options-forms">
+        <div>
+          <div class="d-block d-sm-block d-md-none">
+            <div>
+              <img src="assets/logo-name.png" class="logoImage">
+            </div>
+            <h2 class="user_unregistered-text">Enforcement Configurator</h2>
+          </div>
+        </div>
+        <!-- Login Form-->
+        <div class="user_forms-login" *ngIf="!logIn">
+          <h2 class="forms_title">Login</h2>
+          <div class="logo">
+            <img src="assets/logo.png" alt="">
+            <h4>Enforcement Configurator</h4>
+          </div>
+          <form name="Login_Form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <fieldset class="forms_fieldset">
+              <div class="forms_field select">
+                <select class="forms_field-input "  id="client" formControlName="client" name="client">
+                  <option value=null disabled>Select Client</option>
+                  <option *ngFor="let client of clients" value="{{client}}">{{client}}</option>
+                </select>
+                <i class="fa fa-university"></i>
+                <small class="text-danger" *ngIf="!loginForm.get('client').valid && loginForm.get('client').touched ">Please select client</small>
+              </div>
+              <div class="forms_field">
+                <input type="text" class="forms_field-input" name="username" id="uname" placeholder="Username" formControlName="username">
+                <i class="fa fa-user"></i>
+                <small class="text-danger" *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched ">Please enter username</small>
+              </div>
+              <div class="forms_field">
+                <input type="password" formControlName="password" name="password" id="psw" placeholder="Password" class="forms_field-input">
+                <i class="fa fa-lock"></i>
+                <small class="text-danger" *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched ">Please enter Password</small>
+              </div>
+            </fieldset>
+            <div class="forms_buttons ">
+              <a class="" (click)="forgetPassword()">Forgot Password ?</a>
+              <button class="login mt-4" type="submit" [disabled]="logging">
+                <i class="fa fa-sign-in"></i> {{logging?'Logging...' :'Login' }} </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Forget Password -->
+        <div class="user_forms-login" *ngIf='logIn'>
+          <h2 class="forms_title">Forgot Password</h2>
+          <div class="logo">
+            <img src="assets/logo.png" alt="">
+            <h4>Enforcement Configurator</h4>
+          </div>
+          <form name="forgetPasswordForm" [formGroup]="forgetPasswordForm" (ngSubmit)="onForgetPassword()" *ngIf="!hideForm">
+            <fieldset class="forms_fieldset">
+              <div class="forms_field select">
+                <select class="forms_field-input" id="uname" formControlName="client" name="client">
+                  <option value=null disabled>Select Client</option>
+                  <option *ngFor="let client of clients" value="{{client}}">{{client}}</option>
+                </select>
+                <i class="fa fa-university"></i>
+                <small class="text-danger" *ngIf="!forgetPasswordForm.get('client').valid && forgetPasswordForm.get('client').touched ">Please select client</small>
+              </div>
+              <div class="forms_field">
+                <input type="text" class="forms_field-input" placeholder="User name" formControlName="fpuser" name="foretpasswordUname" id="pswUname">
+                <i class="fa fa-user"></i>
+                <small *ngIf="!forgetPasswordForm.get('fpuser').valid && forgetPasswordForm.get('fpuser').touched">Please enter username</small>
+              </div>
+            </fieldset>
+            <div class="forms_buttons mt-4">
+              <button class="login" type="submit">
+                <i class="fa fa-floppy-o pr-1"></i> Submit</button>
+              <button class="canclebtn ml-3" type="button" (click)="forgetPassword()">
+                <i class="fa fa-times pr-1" aria-hidden="true"></i> Cancel</button>
+            </div>
+          </form>
+
+          <!-- Create new Password -->
+          <form name="Login_Form" [formGroup]="GenratePasswordForm" (ngSubmit)="onGeneratePAssword()" *ngIf="hideForm">
+            <fieldset class="forms_fieldset">
+              <div class="forms_field">
+                <input type="text" class="forms_field-input" name="genrateUname" id="generateId" readonly placeholder="Username" formControlName="username">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                <small *ngIf="!GenratePasswordForm.get('username').valid && GenratePasswordForm.get('username').touched">Please enter username</small>
+              </div>
+              <div class="forms_field">
+                <input type="text" class="forms_field-input" placeholder="Generated Password" name="genratePsw" id="generatePswId" formControlName="generatedPassword">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <small *ngIf="!GenratePasswordForm.get('generatedPassword').valid && GenratePasswordForm.get('generatedPassword').touched">please enter generated password</small>
+              </div>
+              <div class="forms_field">
+                <input type="password" formControlName="password" name="newPsw" id="newPass" placeholder="New Password" class="forms_field-input">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <small *ngIf="!GenratePasswordForm.get('password').valid && GenratePasswordForm.get('password').touched">Please enter new pssword</small>
+              </div>
+            </fieldset>
+            <div class="forms_buttons mt-4">
+              <button class="login" type="submit" [disabled]="logging">
+                <i class="fa fa-floppy-o pr-1"></i> Submit</button>
+              <button class="canclebtn ml-3" type="button" (click)="forgetPassword2()">
+                <i class="fa fa-times pr-1" aria-hidden="true"></i> Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul class="bg-bubbles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</div>

@@ -1,0 +1,71 @@
+.btn-danger {
+    position: fixed;
+    right: 4px;
+    bottom: 2px;
+}
+
+.commentbox {
+    background-color: #ffffff;
+    width: 465px;
+    border-color: #D1D1D1;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    padding-bottom: 9px;
+    padding-left: 9px;
+    padding-right: 9px;
+    padding-top: 9px;
+    position: relative;
+}
+
+.count {
+    float: right;
+    text-align: right;
+}
+
+.filter_main {
+    display: inline-block;
+    width: 100%;
+}
+
+.filter_main .filter span {
+    cursor: pointer;
+    background: #ef4000;
+    padding: 5px 10px;
+    border-radius: 30px;
+    color: white;
+    font-size: 12px;
+}
+
+.filter_main .filter {
+    display: inline-block;
+    width: auto;
+}
+
+.filter_main .form-control {
+    display: inline-block;
+    width: auto;
+    float: right;
+}
+
+.active {
+    background: #28a745 !important;
+}
+
+.role_body_content {
+    max-width: 500px;
+    .role_content {
+        background: white;
+        padding: 15px;
+        border: 1px solid #ddd;
+        max-height: 400px;
+        overflow-y: auto;
+        .role_list {
+            color: #444;
+            font-size: 13px;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin: 4px 8px 4px 0;
+        }
+    }
+}

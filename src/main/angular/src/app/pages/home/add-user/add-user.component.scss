@@ -1,0 +1,80 @@
+.form-title {
+    color: #333;
+}
+.add_user_form{
+    form{
+        max-width: 450px;
+        margin: auto;
+    }
+}
+
+.add_user_form button.btn {
+    border-radius: 3px;
+}
+.authorities_main {
+    max-height: 220px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border: solid 1px #ddd;
+}
+.authorities_main ul li {
+    margin-bottom: 8px;
+}
+.authorities_main ul {
+    margin: 0 !important;
+    padding: 15px;
+}
+
+
+.select_box{
+    label{
+        display: block;
+    }
+    .custom_bdg{
+        padding: 0 0 0 7px !important;
+        margin-right: 10px;
+        background-color: #334a5e !important;
+        font-size: 10px !important;
+        line-height: normal;
+
+    }
+    .close_btn {
+        background: #999a9b;
+        border: none;
+        padding: 4px 6px;
+        color: white;
+        font-size: 12px;
+        margin-left: 5px;
+        border-radius: 0 3px 3px 0;
+    }
+}
+
+
+.add_user_form {
+    form {
+        box-shadow: 0 0 10px #ddd;
+        max-width: 450px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+        .form-title{
+            padding: 15px 0;
+            margin: 0;
+            background: #fafafa;
+            border-bottom: solid 1px #ddd;
+        }
+        .form-group {
+            padding: 0 15px;
+        }
+    }
+}
+
+.select_box .custom_bdg {
+    padding: 0 0 0 7px !important;
+    margin-right: 10px;
+    background-color: #334a5e !important;
+    font-size: 13px !important;
+    line-height: 16px;
+    font-weight: 100;
+    letter-spacing: 0.3px;
+}

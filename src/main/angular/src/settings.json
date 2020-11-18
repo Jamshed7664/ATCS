@@ -1,0 +1,18 @@
+{
+    "files.exclude": {
+    "**/*.js": false,
+    "**/*.js.map": true
+    },
+    "material-icon-theme.showUpdateMessage": false,
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.iconTheme": "material-icon-theme",
+    "window.zoomLevel": 0,
+    "editor.fontSize": 20,
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2,
+    "workbench.activityBar.visible": true,
+    "search.location": "sidebar",
+    "liveServer.settings.donotShowInfoMsg": true,
+    "liveServer.settings.donotVerifyTags": true,
+    "files.autoSave": "off"
+    }

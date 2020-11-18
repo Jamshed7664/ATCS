@@ -1,0 +1,421 @@
+<div class="header_bottom">
+    <div class="header_title">
+        <h3>{{equipmentDetails.equipmentMapping?.locationName}}<i class="fa fa-angle-double-right" aria-hidden="true" *ngIf="equipmentDetails.equipmentMapping&&equipmentDetails.equipmentMapping.armName"></i>
+            <span>{{equipmentDetails.equipmentMapping?.armName}}</span>
+            <i class="fa fa-angle-double-right" aria-hidden="true" *ngIf="equipmentDetails.equipmentMapping&&equipmentDetails.equipmentMapping.laneName"></i>
+            <span>{{equipmentDetails.equipmentMapping?.laneName}}</span>
+        </h3>
+    </div>
+    <div class="camrea_details">
+        <div class="label">
+            <div class="camera_content">
+                <label>{{equipmentDetails.equipmentTypeName}} -</label>
+                <span> {{equipmentDetails.name}}</span>
+            </div>
+        </div>
+        <div class="label">
+            <ng-container *ngFor="let attr of equipmentDetails.attributeValues">
+                <div class="camera_content" *ngIf="attr.attribute.name=='Model'">
+                    <label>Modal No. - </label>
+                    <span> {{attr.value}}</span>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid " *ngIf="process">
+    <div class="row">
+        <div class="col-12 ">
+            <img src="assets/gif2.gif" class="img-fluid d-block mx-auto mt-5" alt="">
+        </div>
+    </div>
+</div>
+<div class="container-fluid" *ngIf="!process">
+    <!-- <img src="assets/cam.jpg" class="img-fluid d-block mx-auto" alt="" width="400" height="300"> -->
+    <div class="site_content">
+        <form (ngSubmit)="onSubmit()" [formGroup]="cameraForm" class="location_form mb-0">
+
+              <div class="col-12 camera_title">
+                <h3 style="margin-top: 0;">Camera Type</h3>
+            </div>
+            <div class="container">
+                <div class="details_card">
+                <div class="row">
+                  <div class="col-4">
+                      <div class="form-group mt-2">
+                          <div class="radio">
+                              <input type="radio" name="cameraType" formControlName="cameraType" value="REAR" id="rear">
+                              <label for="rear">
+                                  REAR CAMERA
+                              </label>
+
+                          </div>
+                          <small class="text-danger" *ngIf="cameraForm.get('cameraType').invalid && cameraForm.get('cameraType').touched">Please input CameraType</small>
+                      </div>
+                  </div>
+                  <div class="col-4">
+                      <div class="form-group mt-2">
+                          <div class="radio">
+                              <input type="radio" name="cameraType" formControlName="cameraType" value="FRONT" id="front">
+                              <label for="front">
+                                  FRONT CAMERA
+                              </label>
+
+                          </div>
+                          <small class="text-danger" *ngIf="cameraForm.get('cameraType').invalid && cameraForm.get('cameraType').touched">Please input CameraType</small>
+                      </div>
+                  </div>
+                </div>
+            </div>
+            </div>
+
+
+            <!-- <div class="col-12 camera_title">
+                <h3 style="margin-top: 0;">Camera Id</h3>
+            </div>
+
+            
+
+            <div class="container">
+                <div class="details_card">
+                    <div class="row">
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="cameraId">Camera Id</label>
+                                <input type="text" class="form-control" readonly value="{{cameraId}}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- <div class="col-12 camera_title">
+                <h3>Camera RTSP</h3>
+            </div>
+            <div class="container">
+                <div class="details_card">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" placeholder="Username" formControlName="username" (ngModelChange)="formRtspUrl()">
+                                <small class="text-danger" *ngIf="cameraForm.get('username').invalid && cameraForm.get('username').touched">
+
+                                    <span *ngIf="cameraForm.get('username').errors['required']">
+                                        Please input Username
+                                    </span>
+                                    <span *ngIf="cameraForm.get('username').errors['pattern']">
+                                        {{cameraForm.get('username').value}} is not valid, it must be 3 Characters
+                                    </span>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="Password">Password</label>
+                                <input type="password" class="form-control" placeholder="Password" formControlName="password" (ngModelChange)="formRtspUrl()">
+                                <small class="text-danger" *ngIf="cameraForm.get('password').invalid && cameraForm.get('password').touched">
+                                    <span *ngIf="cameraForm.get('password').errors['required']">Please input Password</span>
+                                    <span *ngIf="cameraForm.get('password').errors['minlength']">Password must be 5 Characters
+                                    </span>
+                                    <span></span>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="IPAddress">IPAddress</label>
+                                <input type="text" class="form-control" placeholder="IPAddress" formControlName="ipAddress" (ngModelChange)="formRtspUrl()">
+                                <small class="text-danger" *ngIf="cameraForm.get('ipAddress').invalid && cameraForm.get('ipAddress').touched">
+                                    <span *ngIf="cameraForm.get('ipAddress').errors['required']"> Please input ipAddress
+                                    </span>
+                                    <span *ngIf="cameraForm.get('ipAddress').errors['pattern']">
+                                        {{cameraForm.get('ipAddress').value}} is not valid,it must be like
+                                        <b>192.1.1.0</b>
+                                    </span>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="FPS">FPS</label>
+                                <input type="number" class="form-control" placeholder="FPS" formControlName="fps">
+                                <small class="text-danger" *ngIf="cameraForm.get('fps').invalid && cameraForm.get('fps').touched">Please input FPS
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="frameWidth">FrameWidth</label>
+                                <input type="number" class="form-control" placeholder="frameWidth" formControlName="frameWidth">
+                                <small class="text-danger" *ngIf="cameraForm.get('frameWidth').invalid && cameraForm.get('frameWidth').touched">Please input FrameWidth</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="FrameHeight">FrameHeight</label>
+                                <input type="number" class="form-control" placeholder="FrameHeight" formControlName="frameHeight">
+                                <small class="text-danger" *ngIf="cameraForm.get('frameHeight').invalid && cameraForm.get('frameHeight').touched">Please input FrameWidth</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="resolution">Resolution</label>
+                                <input type="text" class="form-control" name="resolution" id="" value="{{cameraForm.get('frameWidth').value +'X'+ cameraForm.get('frameHeight').value}}"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="ScaleFactor">ScaleFactor</label>
+                                <input type="number" class="form-control" placeholder="ScaleFactor" formControlName="scaleFactor">
+                                <small class="text-danger" *ngIf="cameraForm.get('scaleFactor').invalid && cameraForm.get('scaleFactor').touched">Please input ScaleFactor</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="Codecs">Codecs</label>
+                                <input type="text" class="form-control" placeholder="Codecs" formControlName="codecs">
+                                <small class="text-danger" *ngIf="cameraForm.get('codecs').invalid && cameraForm.get('codecs').touched">Please input codecs
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=" col-12 camera_title">
+                <h3>RTSP Formed</h3>
+            </div>
+
+            <div class="container">
+                <div class="details_card">
+                    <div class="row">
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="cameraId">RTSP Formed</label>
+                                <input type="text" class="form-control" readonly formControlName="rtsp" [style.text-decoration-line]="cameraForm.get('other').value?'line-through':none">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <div class="camera_check">
+                                    <input type="checkbox" name="other" id="other" formControlName="other" (ngModelChange)="enableOtherRtsp($event)">
+                                    <label for="cameraId">Other </label>
+                                </div>
+                                <input type="text" class="form-control" formControlName="otherRtsp">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 camera_title">
+                <h3>Camera Type</h3>
+            </div>
+            <div class="container">
+                <div class="details_card">
+                    <div class="row mt-2">
+
+                        <div class="col-4">
+                            <div class="form-group">
+                                <div class="radio">
+                                    <input type="radio" name="cameraType" formControlName="cameraType" value="REAR" id="rear">
+                                    <label for="rear">
+                                        REAR
+                                    </label>
+
+                                </div>
+                                <small class="text-danger" *ngIf="cameraForm.get('cameraType').invalid && cameraForm.get('cameraType').touched">Please input CameraType</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <div class="radio">
+                                    <input type="radio" name="cameraType" formControlName="cameraType" value="FRONT" id="front">
+                                    <label for="front">
+                                        FRONT
+                                    </label>
+
+                                </div>
+                                <small class="text-danger" *ngIf="cameraForm.get('cameraType').invalid && cameraForm.get('cameraType').touched">Please input CameraType</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="col-12 camera_title">
+                        <h3>Camera RTSP</h3>
+                    </div>
+                    <div class="container">
+                        <div class="details_card">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="text" class="form-control" placeholder="Username" formControlName="username" (ngModelChange)="formRtspUrl()">
+                                        <small class="text-danger" *ngIf="cameraForm.get('username').invalid && cameraForm.get('username').touched">
+        
+                                            <span *ngIf="cameraForm.get('username').errors['required']">
+                                                Please input Username
+                                            </span>
+                                            <span *ngIf="cameraForm.get('username').errors['pattern']">
+                                                {{cameraForm.get('username').value}} is not valid, it must be 3 Characters
+                                            </span>
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="Password">Password</label>
+                                        <input type="password" class="form-control" placeholder="Password" formControlName="password" (ngModelChange)="formRtspUrl()">
+                                        <small class="text-danger" *ngIf="cameraForm.get('password').invalid && cameraForm.get('password').touched">
+                                            <span *ngIf="cameraForm.get('password').errors['required']">Please input Password</span>
+                                            <span *ngIf="cameraForm.get('password').errors['minlength']">Password must be 5 Characters
+                                            </span>
+                                            <span></span>
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="IPAddress">IPAddress</label>
+                                        <input type="text" class="form-control" placeholder="IPAddress" formControlName="ipAddress" (ngModelChange)="formRtspUrl()">
+                                        <small class="text-danger" *ngIf="cameraForm.get('ipAddress').invalid && cameraForm.get('ipAddress').touched">
+                                            <span *ngIf="cameraForm.get('ipAddress').errors['required']"> Please input ipAddress
+                                            </span>
+                                            <span *ngIf="cameraForm.get('ipAddress').errors['pattern']">
+                                                {{cameraForm.get('ipAddress').value}} is not valid,it must be like
+                                                <b>192.1.1.0</b>
+                                            </span>
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="cameraId">RTSP Formed</label>
+                                        <input type="text" class="form-control" readonly formControlName="rtsp" [style.text-decoration-line]="cameraForm.get('other').value?'line-through':none">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <div class="camera_check">
+                                            <input type="checkbox" name="other" id="other" formControlName="other" (ngModelChange)="enableOtherRtsp($event)">
+                                            <label for="cameraId">Other </label>
+                                        </div>
+                                        <input type="text" class="form-control" formControlName="otherRtsp">
+                                    </div>
+                                </div>
+                              <!-- <div class="container">
+                                  <div class="row">
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <div class="radio">
+                                                <input type="radio" name="cameraType" formControlName="cameraType" value="REAR" id="rear">
+                                                <label for="rear">
+                                                    REAR CAMERA
+                                                </label>
+            
+                                            </div>
+                                            <small class="text-danger" *ngIf="cameraForm.get('cameraType').invalid && cameraForm.get('cameraType').touched">Please input CameraType</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group">
+                                            <div class="radio">
+                                                <input type="radio" name="cameraType" formControlName="cameraType" value="FRONT" id="front">
+                                                <label for="front">
+                                                    FRONT CAMERA
+                                                </label>
+            
+                                            </div>
+                                            <small class="text-danger" *ngIf="cameraForm.get('cameraType').invalid && cameraForm.get('cameraType').touched">Please input CameraType</small>
+                                        </div>
+                                    </div>
+                                  </div>
+                              </div> -->
+                         
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class=" col-12 camera_title">
+                        <h3>FPS</h3>
+                    </div>
+                    <div class="container">
+                        <div class="details_card">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="resolution">Resolution</label>
+                                    <input type="text" class="form-control" name="resolution" id="" value="{{cameraForm.get('frameWidth').value +'X'+ cameraForm.get('frameHeight').value}}"
+                                        readonly>
+                                </div>
+                            </div>
+                           
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="frameWidth">FrameWidth</label>
+                                    <input type="number" class="form-control" placeholder="frameWidth" formControlName="frameWidth">
+                                    <small class="text-danger" *ngIf="cameraForm.get('frameWidth').invalid && cameraForm.get('frameWidth').touched">Please input FrameWidth</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="FrameHeight">FrameHeight</label>
+                                    <input type="number" class="form-control" placeholder="FrameHeight" formControlName="frameHeight">
+                                    <small class="text-danger" *ngIf="cameraForm.get('frameHeight').invalid && cameraForm.get('frameHeight').touched">Please input FrameWidth</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="FPS">FPS</label>
+                                    <input type="number" class="form-control" placeholder="FPS" formControlName="fps">
+                                    <small class="text-danger" *ngIf="cameraForm.get('fps').invalid && cameraForm.get('fps').touched">Please input FPS
+                                    </small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="ScaleFactor">ScaleFactor</label>
+                                    <input type="number" class="form-control" placeholder="ScaleFactor" formControlName="scaleFactor">
+                                    <small class="text-danger" *ngIf="cameraForm.get('scaleFactor').invalid && cameraForm.get('scaleFactor').touched">Please input ScaleFactor</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label for="Codecs">Codecs</label>
+                                    <input type="text" class="form-control" placeholder="Codecs" formControlName="codecs">
+                                    <small class="text-danger" *ngIf="cameraForm.get('codecs').invalid && cameraForm.get('codecs').touched">Please input codecs
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+
+
+
+            <div class="container mt-3">
+                <div class="form_btns col-12 p-0 ">
+                    <button type="submit" class="saveBtn">Save</button>
+                    <button type="button" class="addlBtn bg-success" [disabled]="cameraForm.invalid" (click)="saveAndContinue()">Save and Continue
+                        <!-- <i class="fa fa-hand-o-right"></i> -->
+                    </button>
+                    <button type="button" class="addlBtn" (click)="reset()">Reset</button>
+                    <button type="button" class="cancelBtn" (click)="back()">Cancel</button>
+                    <!-- <button type="button" class="btn btn-warning btn-sm ml-3" [routerLink]="['/home/equipments']" routerLinkActive="router-link-active">Back</button> -->
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

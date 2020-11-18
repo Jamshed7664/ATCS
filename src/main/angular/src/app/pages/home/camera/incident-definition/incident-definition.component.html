@@ -1,0 +1,99 @@
+<div class="header_bottom">
+  <div class="header_title">
+    <h3>{{equipmentDetails.equipmentMapping?.locationName}}
+      <i class="fa fa-angle-double-right" aria-hidden="true" *ngIf="equipmentDetails.equipmentMapping&&equipmentDetails.equipmentMapping.armName"></i>
+      <span>{{equipmentDetails.equipmentMapping?.armName}}</span>
+      <i class="fa fa-angle-double-right" aria-hidden="true" *ngIf="equipmentDetails.equipmentMapping&&equipmentDetails.equipmentMapping.laneName"></i>
+      <span>{{equipmentDetails.equipmentMapping?.laneName}}</span>
+    </h3>
+  </div>
+  <div class="camrea_details">
+    <div class="label">
+      <div class="camera_content">
+        <label>{{equipmentDetails.equipmentTypeName}}</label> - 
+        <span> {{equipmentDetails.name}}</span>
+      </div>
+    </div>
+    <div class="label">
+      <ng-container *ngFor="let attr of equipmentDetails.attributeValues">
+        <div class="camera_content" *ngIf="attr.attribute.name=='Model'">
+          <label>Modal No.</label> -
+          <span>{{attr.value}}</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="card mb-3" *ngIf="siblingCameras.length">
+    <div class="card-body">
+      <div class="form-check-inline" *ngFor="let sc of siblingCameras;">
+        <label class="form-check-label">
+          <input type="radio" class="form-check-input" name="optradio" [(ngModel)]="selectedSiblingCamera" [value]="sc.id">{{sc.code}}
+        </label>
+      </div>
+      <button type="button" class="btn btn-success btn-sm" [disabled]="!selectedSiblingCamera" (click)="onSubmit(true)">Apply</button>
+    </div>
+  </div>
+  <div class="incident_button">
+    <button type="button" class="btn btn-info mr-3 mb-3" *ngFor="let type of incidentTypes" (click)="initIncident(type)">{{type.name}}</button>
+  </div>
+  <div class="container">
+  </div>
+</div>
+
+<div class="modal_main">
+  <div class="modal fade bd-example-modal-lg p-5" id="incidentModel" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header custom-header">
+          <h5 class="modal-title">{{selectedIncidentType.name}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <form [formGroup]="incidentForm" (ngSubmit)="onSubmit()" *ngIf="incidentForm">
+          <div class="modal-body pb-0">
+            <div class="container p-0" formArrayName="incidents">
+              <div class="" *ngFor="let incident of incidentForm.controls.incidents.controls;let i = index;" [formGroupName]="i">
+                <div class="customtitle">
+                  <div class="check">
+
+                    <input type="checkbox" class="" formControlName="checked" (ngModelChange)="setControls($event, incident)" value="{{incident.value.checked}}">
+                    <label class="">
+                      {{incident.value.name}}
+                    </label>
+                  </div>
+                </div>
+                <div class="customrow">
+                  <ng-container formArrayName="attributeValues">
+                    <div class="custom_col" *ngFor="let attribute of incident.controls.attributeValues.controls;let j = index" [formGroupName]="j">
+                      <div class="" *ngIf="incident.value.attributes[j].dataType !== 'Checkbox'">
+                        <label for="">{{incident.value.attributes[j].name}} ({{incident.value.attributes[j].unit}})</label>
+                        <input [attr.type]="incident.value.attributes[j].dataType" [attr.name]="incident.value.attributes[j].name" [attr.id]="incident.value.attributes[j].id"
+                          class="form-control" formControlName="value">
+                      </div>
+                      <div class="check smalll" *ngIf="incident.value.attributes[j].dataType === 'Checkbox'">
+                        <input type="checkbox" class="" formControlName="value" value="{{incident.value.checked}}" [attr.name]="incident.value.attributes[j].name"
+                          [attr.id]="incident.value.attributes[j].id">
+                        <label class=""> {{incident.value.name}}
+                        </label>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="saveBtn" [disabled]="incidentForm.invalid">{{incidentForm.value.save?'Saving..':'Save'}}</button>
+            <button type="button" class="cancelBtn" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

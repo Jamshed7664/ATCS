@@ -1,0 +1,51 @@
+<div class="header_bottom">
+    <div class="header_title">
+        <button type="button" class="back_btn" [routerLink]="['/home/roles']" routerLinkActive="router-link-active">
+         <img src="assets/arrow-back.png" alt=""></button>
+        <h3>{{authId ? 'Update Role' :'Add Role'}}</h3>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="site_content">
+        <div class="add_role_main">
+            <form class="select_box border" [formGroup]="createRoleForm" (ngSubmit)="onSubmit()">
+                <!-- <h3 class="text-center form-title">{{authId ? 'Update Role' :'Add Role'}}</h3> -->
+                <div class="form-group mt-3">
+                    <label for="exampleInputEmail1">Name <span class="required">*</span> </label>
+                    <input type="email" class="form-control" formControlName="name" name="name" id="roleId" placeholder="Name">
+                    <small class="text-danger" *ngIf="!createRoleForm.get('name').valid && createRoleForm.get('name').touched">Role name required</small>
+                </div>
+                <div class="form-group">
+                    <label class="mb-1" for="exampleInputPassword1">Authorities<span class="required">*</span> </label>
+                    <span class="badge badge-secondary custom_bdg" *ngFor="let a of selectedAuthorities; index as i">
+            {{a.name}}
+            <button class="close_btn" type="button" (click)="onChangeAuthorities(a)">
+              <i class="fa fa-close"></i>
+            </button>
+          </span>
+                    <!-- <input type="text" autocomplete="off" name="search" formControlName="search" placeholder="Authorities" class="form-control mt-2 " [(ngModel)]="term" data-toggle="collapse" data-target="#authorities" style="cursor: pointer;"> -->
+                    <small class="text-danger" *ngIf="eventValue">Please Select Authority</small>
+                    <div class="pk-collapse">
+                        <div class="authorities_main" id="authorities">
+                            <ul style="list-style: none;" class="mt-4">
+                                <!-- <input type="text" class="form-control" name="search" formControlName="search" placeholder="Search Here" [(ngModel)]="term"> -->
+                                <li *ngFor="let item of authorities | filter:term" class="checkbox_main">
+                                    <div class="checkbox_box">
+                                    <input type="checkbox" selected="true" [checked]="isChecked(item)" name="check" id="authCheck" value="{{item.id}}" (change)="onChangeAuthorities(item)"> <span>{{item.name}}</span>
+                                </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="form_btns popup_btn">
+                    <button type="submit" class="saveBtn">{{authId ?'Update': 'Submit'}}</button>
+                    <!-- <button type="button" class="cancelBtn" [routerLink]="['/home/roles']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i>Back</button> -->
+
+                </div>
+            
+            </form>
+            </div>
+    </div>
+</div>
+

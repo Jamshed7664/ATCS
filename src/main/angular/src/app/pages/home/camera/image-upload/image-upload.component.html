@@ -1,0 +1,51 @@
+<div class="site_content">
+    <div class="header_bottom">
+        <div class="header_title">
+            <h3>{{equipmentDetails.equipmentMapping?.locationName}}
+                <i class="fa fa-angle-double-right" aria-hidden="true" *ngIf="equipmentDetails.equipmentMapping&&equipmentDetails.equipmentMapping.armName"></i>
+                <span>{{equipmentDetails.equipmentMapping?.armName}}</span>
+                <i class="fa fa-angle-double-right" aria-hidden="true" *ngIf="equipmentDetails.equipmentMapping&&equipmentDetails.equipmentMapping.laneName"></i>
+                <span>{{equipmentDetails.equipmentMapping?.laneName}}</span>
+            </h3>
+        </div>
+        <div class="camrea_details">
+            <div class="label">
+                <div class="camera_content">
+                    <label>{{equipmentDetails.equipmentTypeName}}</label> -
+                    <span> {{equipmentDetails.name}}</span>
+                </div>
+            </div>
+            <div class="label">
+                <ng-container *ngFor="let attr of equipmentDetails.attributeValues">
+                    <div class="camera_content" *ngIf="attr.attribute.name=='Model'">
+                        <label>Modal No.</label> -
+                        <span> {{attr.value}}</span>
+                    </div>
+                </ng-container>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="images_upload_main">
+        <form>
+            <div *ngIf="loader">
+                <img *ngIf="loader" src="assets/gif2.gif" class="d-block mx-auto" alt="">
+            </div>
+            <div *ngIf="!loader" class="upload_img">
+                <img id="blah" [src]="imageSrc" *ngIf="imageSrc" />
+                <img id="blah" src="assets/image-not-found.jpg" *ngIf="!imageSrc" class="d-block mx-auto" alt="" />
+            </div>
+            <div class="">
+                <input #fileUpload type="file" (click)="fileUpload.value = null" (change)="handleFileInput($event)" style="display:none" accept="image/*">
+                <div class="button_main">
+                    <button (click)="fileUpload.click()" class="addlBtn bg-success">{{selectedImg ? 'Change Image' :'Upload New Image'}} </button>
+                    <button class="saveBtn" (click)="uploadFile()">{{upload ? 'Uploading...': 'Upload'}}</button>
+                    <button class="cancelBtn" (click)="back()">Cancel</button>
+                    <button class="addlBtn" (click)="onMainCoordinate()">
+                        Next</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

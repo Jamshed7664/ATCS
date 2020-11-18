@@ -1,0 +1,106 @@
+<div class="location_details">
+  <div class="header_location">
+    <div class="location-list" *ngFor="let attr of location.attributeValues">
+
+      <h4> {{attr.value}}</h4>
+    </div>
+    <div class="header_btn">
+      <button class="top_tooltip" (click)="editLocation(location.id)">
+        <img src="assets/images/edit.svg" alt="">
+        <span>Update Location</span>
+      </button>
+      <button class="top_tooltip" (click)="mapEquipments(location.id)">
+        <img src="assets/images/equipment.svg" alt="">
+        <span>Equipment Mappings</span>
+      </button>
+      <button class="top_tooltip" routerLink="../../">
+        <img src="assets/images/close.svg " alt="" style=" width: 12px;">
+        <span>Close</span>
+      </button>
+    </div>
+
+  </div>
+  <div>
+    <div class="location_profile" *ngIf="!loader">
+      <div class="location_profile_img">
+        <img src="assets/images/location-map.jpg" alt="">
+      </div>
+      <div class="location_list_main">
+        <div class="location-list">
+          <label>Location Type - </label>
+          <span> {{location.locationTypeName}}</span>
+        </div>
+        <ng-container *ngFor="let attr of location.attributeValues">
+          <div class="location-list" *ngIf="attr.locationTypeAttributeResponse.fixed&&attr.value">
+            <label>{{attr.locationTypeAttributeResponse.name}} - </label>
+            <span> {{attr.value}} {{attr.locationTypeAttributeResponse.name=='Latitude'|| attr.locationTypeAttributeResponse.name=='Longitude'?
+              '° N':''}}</span>
+          </div>
+        </ng-container>
+        <div id="more_detail" class="collapse">
+          <ng-container *ngFor="let attr of location.attributeValues">
+            <div class="location-list" *ngIf="!attr.locationTypeAttributeResponse.fixed&&attr.value">
+              <label>{{attr.locationTypeAttributeResponse.name}} - </label>
+              <span> {{attr.value}}</span>
+            </div>
+          </ng-container>
+          <div class="hightway_details" *ngIf="location.arms?.length">
+            <label>Arms - </label>
+            <span> {{location.arms.length}}</span>
+          </div>
+          <ng-container *ngFor="let arm of location.arms">
+            <div class="junction_details">
+              <div class="arm_count">
+                <label>{{arm.name}} </label>
+                <span> ({{arm.direction}})</span>
+              </div>
+              <!-- <div class="lane_count" *ngIf="location.arms">
+                <label>Number of Lanes: </label>
+                <span> {{arm.lanes.length}}</span>
+              </div> -->
+              <!-- <div class="headerlane">
+                <h3>Lane</h3>
+                <h4>Direction</h4>
+              </div> -->
+              <ng-container >
+                
+                <table class="table table-bordered mb-0">
+                  <tr>
+                    <th>Lane</th>
+                    <th>Direction</th>
+
+                  </tr>
+                  <tr *ngFor="let lane of arm.lanes">
+                    
+                  <td>{{lane.name}}</td>
+                  <td>
+                  <ng-container *ngFor="let direction of lane.directions; let d = index">
+                    <img style="height: 14px; height: 14px; margin-left: 2px; margin-right: 7px;" [src]="'assets/images/' + direction.name + '.png'" alt="">
+                    <!-- <span> {{direction.name}} {{(d
+                      < lane.directions.length-1)? ',': ''}}</span> -->
+
+                  </ng-container>
+                </td>
+                </tr>
+                </table>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+        <a href type="button" class="more_details" data-toggle="collapse" data-target="#more_detail" aria-expanded="false" aria-controls="more_detail "
+          (click)="collapsed = !collapsed">View {{collapsed?'Less':'More'}}</a>
+        <!-- <div class="view_button">
+          <button type="button" class="mr-2" (click)="editLocation(location.id)">Update Location</button>
+          <button type="button" (click)="mapEquipments(location.id)">Equipment Mappings</button>
+        </div> -->
+
+      </div>
+
+    </div>
+    <div class="container" *ngIf="loader">
+      <div>
+        <img src="assets/gif2.gif" class="loader d-block mx-auto" alt="">
+      </div>
+    </div>
+  </div>
+</div>

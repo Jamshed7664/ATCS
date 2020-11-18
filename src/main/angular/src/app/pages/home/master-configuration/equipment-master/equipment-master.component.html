@@ -1,0 +1,111 @@
+<div class="header_bottom">
+    <div class="header_title">
+        <h3>Equipment Master</h3>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="site_content">
+        <ng-container *ngIf="!loader">
+            <div class="location_master_main">
+                <div class="tab_main">
+                    <ul>
+                        <li *ngFor="let item of equipmentType" (click)="setEquipmentType(item);">
+                            <a [ngClass]="{'active': item.id === selectedEquipmentType.id}">{{item.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+    
+                <div class="tab_content">
+                    <form [formGroup]="equipmentMasterForm" (ngSubmit)="onSubmit()">
+                        <table class="table table-bordered table-hovered  ">
+                            <thead>
+                                <th class="text-center">Name</th>
+                                <th class="text-center">Datatype</th>
+                                <th class="text-center">Value</th>
+                                <th class="text-center">isSpecific</th>
+                                <th class="text-center">Action</th>
+                            </thead>
+                            <tbody>
+                                <ng-container *ngFor="let type of selectedEquipmentType.equipmentTypeAttributes">
+                                    <tr *ngIf="type.fixed">
+                                        <td>
+                                            <div class="form-control disabled-input">{{type.name}}</div>
+                                        </td>
+                                        <td>
+                                            <div class="form-control disabled-input">{{type.dataType}}</div>
+                                        </td>
+                                        <td>
+                                            <div class="form-control disabled-input" *ngIf="type.value">{{type.value}}</div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <input type="checkbox" class="form-control checkbox disabled-input" [checked]="type.isSpecific" disabled>
+                                                <label>&nbsp;</label>
+                                            </div>
+                                        </td>
+                                        <td class="text-disable">NA</td>
+                                    </tr>
+                                </ng-container>
+                                <ng-container formArrayName="list" *ngFor="let d of equipmentMasterForm.controls.list.controls ; let i=index">
+                                    <tr [formGroupName]="i">
+                                        <td>
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" name="name" formControlName="name">
+                                                <small *ngIf="d.get('name').touched  && d.get('name').hasError('required')">
+                                                    <span class="text-danger">Input Name</span>
+                                                </small>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <select formControlName="dataType" class="form-control" (ngModelChange)="onChangeDataType(d,$event)">
+                                                    <option *ngFor="let item of dataType" value="{{item.name}}">{{item.name}}</option>
+                                                </select>
+                                                <small *ngIf="d.get('dataType').touched  && d.get('dataType').hasError('required')">
+                                                    <span class="text-danger">Select Data type</span>
+                                                </small>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group col-12" *ngIf="d.get('options')">
+                                                <input type="text" class="form-control" formControlName="options" placeholder="Enter Value">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <input type="checkbox" class="form-control checkbox" formControlName="isSpecific">
+                                                <label>&nbsp;</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn" type="button" [disabled]="d.value.fixed" (click)="deleteRow(i)">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                            <tfoot *ngIf="!equipmentTypefields.length">
+                                <tr>
+                                    <td colspan="5" class="text-center">No Attributes added yet</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <div class="form_btns">
+                            <!-- [disabled]="equipmentMasterForm.invalid || !equipmentMasterForm.dirty" -->
+                            <button button class="saveBtn" type="submit">Submit</button>
+                            <button button class="addlBtn myLinkToTop" type="button" (click)="addRow();">Add</button>
+                        </div>
+                    </form>
+                </div>
+    
+            </div>
+        </ng-container>
+    </div>
+</div>
+
+        <div class="container" *ngIf="loader">
+            <div *ngIf="loader">
+                <img src="assets/gif2.gif" class="loader d-block mx-auto mt-5" alt="">
+            </div>
+        </div>

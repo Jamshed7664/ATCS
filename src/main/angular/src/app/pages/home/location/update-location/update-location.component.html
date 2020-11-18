@@ -1,0 +1,154 @@
+<div class="header_bottom">
+    <div class="header_title">
+        <button type="button" class="back_btn" routerLinkActive="router-link-active" (click)="back()">
+            <img src="assets/arrow-back.png" alt="">
+        </button>
+        <h3>Update Location </h3>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="site_content">
+        <form class="location_form mb-0" [formGroup]="updateLocationForm" (ngSubmit)="onSubmit() ">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label for="locationTypeId">Location Type</label>
+                            <select id="locationTypeId" class="form-control" formControlName="locationTypeId">
+                                <option *ngFor="let item of locationType" value="{{item.id}}">{{item.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <ng-container class="row" formArrayName="attributeValues" *ngIf="updateLocationForm.get('attributeValues')">
+                        <ng-container *ngFor="let attribut of updateLocationForm.controls.attributeValues.controls; let k = index" formGroupName={{k}}>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <div *ngIf="attribut.controls.htmlInputType.value=='dropdown'">
+                                        <label>{{attribut.controls.name.value}}</label>
+                                        <select class="form-control" formControlName="value">
+                                            <option value="" disabled>Choose your Options</option>
+                                            <option *ngFor="let item of attribut.controls.options.value" value="{{item}}">{{item}}</option>
+                                        </select>
+                                        <small class="text-danger " *ngIf="attribut.get('value').touched  && attribut.get('value').hasError('required')">
+                                            Please select {{attribut.controls.name.value}}
+                                        </small>
+                                    </div>
+                                    <div *ngIf="attribut.controls.htmlInputType.value!='dropdown'">
+                                        <div class="check" *ngIf="attribut.controls.htmlInputType.value=='checkbox';else elseOther">
+                                            <input id="cehckbox" type="checkbox" class="form-control" formControlName="value">
+                                            <label for="cehckbox">{{attribut.controls.name.value}}</label>
+                                        </div>
+                                        <ng-template #elseOther>
+                                            <label>{{attribut.controls.name.value}}</label>
+                                            <div class="input-group mb-3" *ngIf="attribut.value.name =='Address';else elseControl">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1" (click)="initMapPreview()">
+                                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control" formControlName="value" placeholder="Address" aria-label="Address" aria-describedby="basic-addon1">
+                                            </div>
+                                            <ng-template #elseControl>
+                                                <input [type]="attribut.controls.htmlInputType.value" class="form-control" placeholder=Enter_{{attribut.controls.htmlInputType.value}}
+                                                    formControlName="value" (ngModelChange)="attribut.value.name =='Latitude'||attribut.value.name =='Longitude'?getLatLng():null">
+                                            </ng-template>
+
+
+                                            <small class="text-danger " *ngIf="attribut.get('value').touched  && attribut.get('value').hasError('required')">
+                                                Please enter {{attribut.controls.name.value}}
+                                            </small>
+                                            <small class="text-danger " *ngIf="attribut.get('value').touched  && attribut.get('value').hasError('pattern')">
+                                                Invalid pattern of {{attribut.controls.name.value}}
+                                            </small>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                </div>
+
+            </div>
+            <div class="select_arms" formArrayName="arms" *ngIf="updateLocationForm.get('arms')">
+                <div class="user-container arms-lines" *ngFor="let arm of updateLocationForm.controls.arms.controls; let i = index" formGroupName="{{i}}">
+                    <p>
+                        <u>
+                            <strong>{{selectedLocationType.locationTypeName == "Highway" ? i==0 ? 'L.H.S' : 'R.H.S' : 'Arm'+(i+1)}}</strong>
+                        </u>
+                    </p>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="lanes">Number of Lanes</label>
+                                <select class="form-control" name="lanes" value="{{arm.controls.lanes.controls.length}}" (change)="addLanes($event.target.value,arm)">
+                                    <option value="">Number of Lanes</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="direction">Arm Direction</label>
+                                <input type="text" class="form-control" placeholder="input Direction" name="direction" formControlName="direction">
+                                <small class="text-danger " *ngIf="arm.get('direction').touched  && arm.get('direction').hasError('required')">
+                                    Please input Direction
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" formArrayName="lanes">
+                        <div class="col-lg-3" *ngFor="let lane of arm.controls.lanes.controls; let j = index" formGroupName="{{j}}">
+                            <div class="container-fluid user-container">
+                                <div class="row">
+                                    <div class="col-12" *ngIf="lane.get('directionIds')">
+                                        <label for="">Lane {{j+1}} direction</label>
+                                        <select name="" id="" formControlName="directionIds" multiple class="form-control">
+                                            <option [ngValue]="direction.id" *ngFor="let direction of directions">{{direction.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 form_btns">
+                <button class="saveBtn">{{update ?'Updating...' :'Update'}}</button>
+                <button class="cancelBtn" (click)="editable()" type="button" [disabled]="!updateLocationForm.dirty">Reset</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Map Preview Modal -->
+<div class="modal_main">
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header custom-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Map Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="MAPpreview" style="background: #f9f9f9;">
+                <div id="mapPreview" #mapRef></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="cancelBtn" data-dismiss="modal">Close</button>
+                <button type="button" class="saveBtn" (click)="setLatLng()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

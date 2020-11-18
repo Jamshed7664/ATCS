@@ -1,0 +1,121 @@
+.add_role_main{
+    form{
+        // max-width: 450px;
+        // width: 100%;
+        // margin: auto;
+        box-shadow: 0 0 5px #ddd;
+    }
+}
+
+.add_role_main button.btn {
+    border-radius: 3px;
+}
+.authorities_main {
+    // max-height: 220px;
+    // overflow-y: auto;
+    // overflow-x: hidden;
+    // border: solid 1px #ddd;
+}
+.authorities_main ul li {
+    margin-bottom: 8px;
+}
+.authorities_main ul {
+    margin: 0 !important;
+    // padding: 15px;
+}
+.select_box{
+    label{
+        display: block;
+    }
+    .custom_bdg{
+        padding: 0 0 0 7px !important;
+        margin-right: 10px;
+        background-color: #334a5e !important;
+        font-size: 10px !important;
+        line-height: normal;
+
+    }
+    .close_btn {
+        background: #999a9b;
+        border: none;
+        padding: 4px 6px;
+        color: white;
+        font-size: 12px;
+        margin-left: 5px;
+        border-radius: 0 3px 3px 0;
+    }
+}
+
+.add_role_main {
+    form {
+        // box-shadow: 0 0 10px #ddd;
+        // background-color: white;
+        .form-title{
+            padding: 15px 0;
+            margin: 0;
+            background: #fafafa;
+            border-bottom: solid 1px #ddd;
+        }
+        .form-group {
+            padding: 0 15px;
+        }
+    }
+}
+span.badge.badge-secondary.custom_bdg {
+    display: none;
+}
+.form-group label {
+    font-size: 18px;
+}
+.checkbox_box {
+    padding: 6px 5px 3px 5px;
+    // border-radius: 3px;
+    margin-right: 15px;
+    color: #8a969e;
+    border: 1px solid #ddd;
+    // box-shadow: 0 0 1px #ddd;
+    background: #fbfbfb;
+}
+.pk-collapse ul li input {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    z-index: 999;
+    opacity: 0;
+    cursor: pointer;
+    top: 9px;
+    left: 10px;
+}
+.pk-collapse ul li input[type=checkbox]:checked + span:after {
+    content: "\f00c";
+    font-family: FontAwesome;
+    color: #ef4000;
+    padding-left: 0px;
+    height: 18px;
+    width: 18px;
+    top: 9px;
+    line-height: 16px;
+    font-size: 13px;
+    text-align: center;
+    /* background: #3f586a; */
+    font-weight: normal;
+    background: #fff;
+}
+.pk-collapse ul li input[type=checkbox]:checked + span {
+  color: #000;
+  font-weight: normal;
+}
+.pk-collapse ul li span:after {
+    position: absolute;
+    content: "";
+    width: 18px;
+    height: 18px;
+    background: #fff;
+    left: 10px;
+    transition: 0.2s;
+    border: solid 1px #b3b3b3;
+    top: 9px;
+}
+.pk-collapse ul li {
+    width: 25%;
+}

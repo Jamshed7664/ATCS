@@ -1,0 +1,87 @@
+<div class="container mt-5 mb-3 ">
+    <form [formGroup]="zoneCoordinatorForm" class="p-3 shadow border">
+        <div formGroupName='list'>
+            <div class="d-flex justify-content-between">
+                <h5 class="text-center text-danger"><strong>Zone detector Region</strong></h5>
+                <button class="btn btn-outline-success ml-2 btn-sm" type="button" (click)="addNewRow()"><i></i> Add new Zone</button>
+
+            </div>
+            <ng-container *ngFor="let item of zoneCoordinatorForm.controls.list.controls; index as i" [formGroupName]='i'>
+                <h4>Zone {{i+1}}</h4>
+                <hr>
+                <div class="row mt-4">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">aPointXCoordinate</label>
+                            <input type="number" placeholder="Enter aPointXCoordinate" formControlName="aPointXCoordinate" class="form-control">
+                            <small class="text-danger" *ngIf="item.get('aPointXCoordinate').touched && item.get('aPointXCoordinate').hasError('required')">aPointXCoordinate must not be empty !!</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">aPointYCoordinate</label>
+                            <input type="number" placeholder="Enter aPointYCoordinate" formControlName="aPointYCoordinate" class="form-control">
+                            <small class="text-danger" *ngIf="item.get('aPointYCoordinate').touched && item.get('aPointYCoordinate').hasError('required')">aPointXCoordinate must not be empty !!</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">bPointXCoordinate</label>
+                            <input type="number" placeholder="Enter bPointXCoordinate" class="form-control" formControlName="bPointXCoordinate">
+                            <small class="text-danger" *ngIf="item.get('bPointXCoordinate').touched && item.get('bPointXCoordinate').hasError('required')">aPointXCoordinate must not be empty !!</small>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">bPointYCoordinate</label>
+                            <input type="number" placeholder="Enter bPointYCoordinate" class="form-control" formControlName="bPointYCoordinate">
+                            <small class="text-danger" *ngIf="item.get('bPointYCoordinate').touched && item.get('bPointYCoordinate').hasError('required')">aPointXCoordinate must not be empty !!</small>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">cPointXCoordinate</label>
+                            <input type="number" placeholder="Enter cPointXCoordinate" class="form-control" formControlName="cPointXCoordinate">
+                            <small class="text-danger" *ngIf="item.get('cPointXCoordinate').touched && item.get('cPointXCoordinate').hasError('required')">aPointXCoordinate must not be empty !!</small>
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">cPointYCoordinate</label>
+                            <input type="number" placeholder="Enter cPointYCoordinate" class="form-control" formControlName="cPointYCoordinate">
+                            <small class="text-danger" *ngIf="item.get('cPointYCoordinate').touched && item.get('cPointYCoordinate').hasError('required')">aPointXCoordinate must not be empty !!</small>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">dPointXCoordinate</label>
+                            <input type="number" placeholder="Enter dPointXCoordinate" class="form-control" formControlName="dPointXCoordinate">
+                            <small class="text-danger" *ngIf="item.get('dPointXCoordinate').touched && item.get('dPointXCoordinate').hasError('required')">aPointXCoordinate must not be empty !!</small>
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label for="">dPointYCoordinate</label>
+                            <input type="number" placeholder="Enter dPointYCoordinate" class="form-control" formControlName="dPointYCoordinate">
+                            <small class="text-danger" *ngIf="item.get('dPointYCoordinate').touched && item.get('dPointYCoordinate').hasError('required')">aPointXCoordinate must not be empty !!</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 d-flex">
+                        <button class="btn btn-outline-success ml-auto btn-sm" type="button" (click)="onSubmit(item.value,i)">{{ myIndex==i ? 'Saving...' :'Save'}}</button>
+                        <button class="btn btn-outline-danger ml-2 btn-sm" type="button" (click)="removerow(i,item)"><i></i> Remove</button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </form>
+</div>

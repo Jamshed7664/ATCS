@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-8">
+            <div class="row">
+                <div class="col-3">
+                    <div class="alert alert-danger  border" (click)="gotoVehicalIncident()">Define Vehical incident Parameter</div>
+                </div>
+                <div class="col-3">
+                    <div class="alert alert-success border" (click)="gototrafficIncident()">Define Traffic incident Parameter</div>
+                </div>
+                <div class="col-3">
+                    <div class="alert alert-info border" (click)="gotoOtherIncident()">Define Other incident Parameter</div>
+                </div>
+                <div class="col-3">
+                    <div class="alert alert-primary border" (click)="gotowheatherIncident()">Define Wheather Condition</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <img src="./assets/images/back2.jpg" class="img-fluid img-thumbnail" alt="">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-8">
+            <table class="table table-bordered table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Zone</th>
+                        <th>A(X,Y)</th>
+                        <th>B(X,Y)</th>
+                        <th>C(X,Y)</th>
+                        <th>D(X,Y)</th>
+                        <th>Draw Zone</th>
+                        <th>Zone Lane</th>
+                        <th>Edit</th>
+                        <th>Map Incidents</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Zone1</td>
+                        <td>[23,45]</td>
+                        <td>[23,45]</td>
+                        <td>[23,45]</td>
+                        <td>[23,45]</td>
+                        <td>Draw</td>
+                        <td><select class="form-control">
+                          <option >Lane1</option>
+                          <option >Lane2</option>
+                          <option >Lane3</option>
+                        </select></td>
+                        <td><button class="btn btn-primary btn-sm text-dark">Edit</button></td>
+                        <td><button class="btn btn-sm btn-success text-dark">Draw</button></td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+
+.camera_title{
+    h3 {
+      font-size: 16px;
+      margin-bottom: 0;
+      margin-top: 20px;
+      color: #495057;
+      background: #f1efef;
+      padding: 7px 10px;
+      border: 1px solid #ddd;
+      border-bottom: none;
+    }
+}
+.details_card {
+    border: 1px solid #ddd;
+    padding: 15px 15px 0 15px;
+}
+.camera_check {
+    position: relative;
+    width: 18px;
+    display: inline-block;
+  }
+  .camera_check input {
+    position: absolute;
+    z-index: 5;
+    width: 18px;
+    height: 18px;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .camera_check input:checked + label:after {
+    font-family: FontAwesome;
+    color: #ef4000;
+    z-index: 2;
+    content: "\f00c";
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+  }
+  .camera_check label:after {
+    content: "";
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #304c5f;
+  }
+  .camera_check label {
+    margin-left: 30px;
+    
+}
+
+.radio {
+    position: relative;
+    width: 18px;
+    display: inline-block;
+  }
+  .radio input {
+    position: absolute;
+    z-index: 5;
+    width: 18px;
+    height: 18px;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .radio input:checked + label:after {
+    font-family: FontAwesome;
+    color: #ef4000;
+    z-index: 2;
+    content: "\f00c";
+    font-size: 13px;
+    line-height: 15px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .radio label:after {
+    content: "";
+    left: 0;
+    top: 0;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #304c5f;
+    border-radius: 50%;
+  }
+  .radio label {
+    margin-left: 30px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.header_title {
+  display: inline-block;
+  width: auto;
+  h3 {
+    font-size: 16px;
+    padding: 5px 0;
+    margin: 0;
+    color: #3f586a;
+    display: inline-block;
+    margin-top: 2px;
+      span {
+        font-size: 14px;
+        color: #28a6ac;
+    }
+    i{
+      padding: 0 5px;
+      font-size: 14px;
+    }
+  }
+}

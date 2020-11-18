@@ -1,0 +1,69 @@
+<div *ngIf="loader">
+    <img src="assets/gif2.gif" class="loader d-block mx-auto" alt="">
+</div>
+<div class="header_bottom">
+    <div class="header_title">
+        <h3>Roles</h3>
+    </div>
+    <div class="search_bar">
+        <form [formGroup]="form">
+            <input type="text" autocomplete="off" name="search" formControlName="search" placeholder="Search here" [(ngModel)]="term" class="form-control">
+            <i class="fa fa-search"></i>
+        </form>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="site_content ">
+        <div *ngIf="!loader">
+            <div class="table_scroll">
+            <table class="table table-bordered mb-0" id="myTable">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Authorities</th>
+                        <th class="act_width" scope="col">Action</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    <tr *ngFor="let item of roles | filter:term; index as i">
+                        <td>{{i+1}}</td>
+                        <td><span>{{item.name}}</span></td>
+                        <td>
+                            <span class="badge badge-secondary custom_bdg mr-2" *ngFor="let subItem of item.authorities ; index as i">{{subItem.name}}</span>
+                        </td>
+                        <td>
+                            <span *ngIf="givenAuthorities.includes('ROLE_UPDATE')">
+                    <!-- <button class="btn btn btn-outline-success" *ngIf="item.active" (click)="sendData(item); updateRole(item)">
+                      <i class="fa fa-edit"></i>
+                    </button> -->
+                    <i class="fa fa-pencil-square-o" *ngIf="item.active" (click)="sendData(item); updateRole(item)"></i>
+        
+                  </span>
+                            <span *ngIf="givenAuthorities.includes('ROLE_DELETE')">
+                    <!-- <button class="btn btn btn-outline-danger" *ngIf="item.active" (click)="deleteRole(item)">
+                      <i class="fa fa-trash"></i>
+                    </button> -->
+                    <i class="fa fa-trash" *ngIf="item.active" (click)="deleteRole(item)"></i>
+        
+                  </span>
+                            <span>
+                    <button class="btn btn btn-success activate" (click)="ActiveDeactiveRole(item)" *ngIf="!item.active">Activate</button>
+                  </span>
+                        </td>
+        
+        
+                    </tr>
+                </tbody>
+                <div *ngIf="roles.length === 0">No data</div>
+            </table>
+            </div>
+            <div class="addequipment">
+                <button type="button" class="btn" [routerLink]="['/home/addrole']" routerLinkActive="router-link-active" (click)="resetRolesValue()" *ngIf="givenAuthorities.includes('ROLE_CREATE')">
+                    <i>+</i> <span>Add Role</span>
+                  </button>
+            </div>
+        </div>
+    </div>
+</div>

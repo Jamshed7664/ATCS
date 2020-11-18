@@ -1,0 +1,37 @@
+<div class="header_bottom">
+    <div class="header_title">
+        <h3>Equipment</h3>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="site_content">
+        <ng-container *ngIf="!loader">
+            <div class="location_master_main ">
+                <div class="tab_main ">
+                    <ul>
+                        <li *ngFor="let eqp of equipments">
+                            <a [routerLink]="['group',eqp.id]" routerLinkActive="active"> {{eqp.name}}
+                                <div class="count-title">
+                                    <span class="badge badge-pill badge-success">{{eqp.count}} </span>
+                                    <span class="badge badge-pill badge-danger ml-2">{{eqp.availableCount}}</span>
+                                </div>
+                                <h6>Limit:{{eqp.quantity}}</h6>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab_content">
+                    <router-outlet></router-outlet>
+
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>
+<div class="container mt-5" *ngIf="loader">
+    <div class="row">
+        <div class="col-12 ">
+            <img src="assets/gif2.gif" class="img-fluid d-block mx-auto mt-5" alt="">
+        </div>
+    </div>
+</div>

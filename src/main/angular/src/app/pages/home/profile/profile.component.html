@@ -1,0 +1,63 @@
+<div *ngIf="loader"><img src="assets/gif2.gif" alt="" class="loader d-block mx-auto"></div>
+<div class="">
+  <div class="profile_main" *ngIf="!loader">
+    <div class="container-fluid mt-3">
+      <div class="row">
+        <div class="col-4">
+          <div class="profile_col">
+          <div class="profile_picture">
+            <img src="assets/images/profile.webp" alt="">
+        </div>
+        <div class="profile_info">
+          <h3>{{authorityObj.name}} Garg</h3>
+          <h6>Role - <span *ngFor="let item of roles"> {{item.name}}</span> </h6>
+          <div class="authorities">
+            Authorities - <span *ngFor="let item of authority; index as i">{{i+1}}</span>
+          </div>
+        </div>
+      </div>
+        </div>
+    
+        <div class="col-8">
+          <div class="row">
+            <div class="col-6">
+              <div class="profile_col">
+                <h5>Personal Details</h5>
+                <div class="profile_content">
+        
+                <div class="detals-fild"> <label>Name:</label> <span> {{authorityObj.name}}</span></div>
+                <div class="detals-fild"> <label>Email:</label><span> {{authorityObj.email}}</span></div>
+                <div class="detals-fild"><label>Username: </label><span> {{authorityObj.username}}</span></div>
+                <!-- <div class="detals-fild">Contact <span>{{ContactNo}}</span></div> -->
+                <div class="detals-fild"><label>Roles:</label> <span *ngFor="let item of roles"> {{item.name}}, </span></div>
+            </div>
+          </div>
+            </div>
+            <div class="col-6 ">
+              <div class="profile_col">
+                <h5>Organization</h5>
+                <div class="profile_content">
+                    <div class="detals-fild"> <label>Name: </label> <span> {{authorityObj.organization.name}}</span></div>
+                    <div class="detals-fild"><label>Code:</label> <span> {{authorityObj.organization.code}}</span></div>
+                    <div class="detals-fild"> <label>Central Latitude:</label> <span> {{authorityObj.organization.centreLongitude}}</span></div>
+                    <div class="detals-fild"> <label>Central Longitude:</label> <span> {{authorityObj.organization.centreLatitude}}</span></div>
+                </div>
+          </div>
+            </div>
+            <div class="col-12 mt-3">
+              <div class="profile_col">
+                <h5>Authorities</h5>
+                <div class="profile_content">
+                <ul style="list-style: none;">
+                    <li *ngFor="let item of authority; index as i" >{{i+1}}. {{item.name}}</li>
+                </ul>
+            </div>
+            </div>
+            <div>
+          </div>
+        </div>
+        
+          </div>
+        </div>
+</div>
+</div>

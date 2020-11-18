@@ -1,0 +1,90 @@
+<div class="header_bottom">
+    <div class="header_title">
+        <button type="button" class="back_btn" [routerLink]="['/home/users']" routerLinkActive="router-link-active">
+         <img src="assets/arrow-back.png" alt=""></button>
+        <h3>Add User</h3>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="site_content mb-0">
+        <form class="select_box location_form mb-0 pb-0 border" [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+            <!-- <h3 class="text-center form-title"> Add User</h3> -->
+            <!-- <h3 class="text-center form-title">{{userId ? 'Update User' :'Add User'}}</h3> -->
+            <div class="container-fluid">
+                <div class="row">
+
+
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Name<span class="required">*</span>
+                      </label>
+                            <input type="text" class="form-control" formControlName="name" name="Name" id="Addname" placeholder="Name">
+                            <small class="text-danger" *ngIf="!addUserForm.get('name').valid && addUserForm.get('name').touched">Please enter name</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">User Name<span class="required">*</span>
+                      </label>
+                            <input type="text" class="form-control" [readonly]="userId" name="usernameAdd" id="idAddUser" formControlName="username" placeholder="User name">
+                            <small class="text-danger" *ngIf="!addUserForm.get('username'). valid && addUserForm.get('username').touched">Please enter valid user name (min 3 character)</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Email<span class="required">*</span>
+                      </label>
+                            <input type="email" class="form-control" formControlName="email" name="email" id="emailId" placeholder="Email">
+                            <small class="text-danger" *ngIf="!addUserForm.get('email').valid && addUserForm.get('email').touched">Please input valid email</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Contact Number</label>
+                            <input type="email" class="form-control" formControlName="contactNo" name="contactNo" id="contactnum" placeholder="Contact number">
+                            <small class="text-danger" *ngIf="!addUserForm.get('contactNo').valid ">Please input valid contact number
+                      </small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Role<span class="required">*</span>
+                      </label>
+
+                            <span class="badge badge-secondary text-white custom_bdg" *ngFor="let r of selectedRoles; index as i">
+                        {{r.name}}
+                        <button class="close_btn" type="button" (click)="onChangeRole(r)">
+                          <i class="fa fa-close"></i>
+                        </button>
+                      </span>
+                            <input type="text" autocomplete="off" class="form-control" name="search" formControlName="search" placeholder="Role" [(ngModel)]="term" data-toggle="collapse" data-target="#roles" style="cursor: pointer;">
+                            <small class="text-danger" *ngIf="selected">Please select atleast one role</small>
+                            <span class="badge badge-info ml-3 mt-2" *ngFor="let item of selectedRoleBadge;index as i"> {{item}} </span>
+                            <div class="pk-collapse">
+                                <div id="roles" class="collapse authorities_main">
+                                    <ul style="list-style: none;" class="mt-4">
+                                        <div *ngFor="let item of Role | filter:term">
+                                            <li *ngIf="item.active">
+                                                <input type="checkbox" selected="true" [checked]="isChecked(item)" name="rolesSelect" id="roleSelectId" value="{{item.id}}" (change)="onChangeRole(item)"> <span>{{item.name}}</span>
+                                                <br>
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form_btns popup_btn col-12 ">
+                        <button type="submit" class="saveBtn">{{userId ? 'Update':'Submit'}}</button>
+                        <!-- <button type="button" class="btn btn-danger ml-3" [routerLink]="['/home/users']" routerLinkActive="router-link-active"><i class="fa fa-arrow-left"></i> Back</button> -->
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

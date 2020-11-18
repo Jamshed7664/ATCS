@@ -1,0 +1,354 @@
+<div class="header_bottom">
+  <div class="header_title">
+    <h3>Equipment Mapping</h3>
+  </div>
+  <div class="gif_main">
+    <img src="assets/images/info.png" alt="">
+    <div class="gif_img">
+      <img src="assets/images/equipment_mapped.gif" alt="">
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid" *ngIf="!loader">
+  <div class="site_content">
+    <div class="row" style="flex-wrap: nowrap; ">
+      <div class="col-8" style=" flex: inherit !important; max-width: inherit !important;">
+        <div class="table_scroll border">
+          <table class="table table-bordered mb-0">
+            <thead>
+              <tr>
+                <th style="width: 100px;">Location</th>
+                <th class="with">Mapped Equipments</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="title">{{location.name}}</td>
+                <td id="drag" class="droppable" [attr.locationId]="location.id" (drop)="drop($event, location)" (dragover)="allowDrop($event)"
+                  (dragenter)="dragenter($event)" (dragleave)="dragleave($event)" [attr.id]="'parent'+location.id">
+                  <ng-container *ngFor="let eqp of location.equipments;let lo=index">
+                    <div class="pkkkkk" *ngIf="eqp.count>0">
+                      <div class="equipment_group_title" data-toggle="collapse" [attr.data-target]="'#'+location.id+eqp.equipmentTypeId+lo" aria-expanded="false">
+                        {{eqp.equipmentTypeName}}
+                        <span class="badge badge-dark">{{eqp.count}}</span>
+                        <i class="fa fa-minus" aria-hidden="true"></i>
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                      </div>
+                      <div class="collapse" style="height: auto !important;" [attr.id]="location.id+eqp.equipmentTypeId+lo" [attr.data-parent]="'#parent'+location.id">
+
+                        <ng-container *ngFor="let map of eqp.list">
+                          <div class="draggable" [attr.equipmentGroupId]="map.groupId" [attr.count]="map.count" [attr.locationId]="map.locationId"
+                            *ngIf="map.count">
+                            <p> {{map.equipmentTypeName + '(' + map.attributeValues[0].value + ')'}}</p>
+                            <span class="badge badge-dark top_tooltip">{{map.count}}
+                              <i class="fa fa-info-circle pl-1" aria-hidden="true"></i>
+                              <div class="toltip_content">
+                                <div class="toltip_details">
+                                  <ng-container *ngFor="let attr of map.attributeValues; let i=index">
+                                    <div *ngIf="!attr.attribute.isSpecific&&attr.attribute.name!='Quantity'" class="toltip_details">
+                                      <label>{{attr.attribute.name}} - </label>
+                                      <span>{{attr.value ? attr.value :'ND'}}</span>
+                                    </div>
+                                  </ng-container>
+                                </div>
+                              </div>
+                            </span>
+                            <div class="action">
+                              <i (click)="editMapping(map, location)" class="fa fa-pencil-square-o br-r" aria-hidden="true" *ngIf="editable"></i>
+                              <i class="fa fa-gear fa-spin" (click)="onConfigure(map, location)" *ngIf="!editable"></i>
+                            </div>
+                            <div class="action2">
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </ng-container>
+                </td>
+              </tr>
+              <ng-container *ngFor="let arm of location.arms">
+                <tr class="arms">
+                  <td class="title">{{arm.name}} ({{arm.direction}})</td>
+                  <td class="droppable" [attr.locationId]="location.id" [attr.armId]="arm.id" (drop)="drop($event, arm)" (dragover)="allowDrop($event)"
+                    (dragenter)="dragenter($event)" (dragleave)="dragleave($event)" [attr.id]="'parent'+arm.id">
+                    <ng-container *ngFor="let eqp of arm.equipments; let a = index">
+                      <div class="pkkkkk" *ngIf="eqp.count>0">
+                        <div class="equipment_group_title " data-toggle="collapse" [attr.data-target]="'#'+arm.id+eqp.equipmentTypeId+a" aria-expanded="false">
+                          {{eqp.equipmentTypeName}}
+                          <span class="badge badge-dark">{{eqp.count}}</span>
+                          <i class="fa fa-minus" aria-hidden="true"></i>
+                          <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                        <div class="collapse" [attr.id]="arm.id+eqp.equipmentTypeId+a" [attr.data-parent]="'#parent'+arm.id">
+                          <ng-container *ngFor="let map of eqp.list">
+                            <div class="draggable" [attr.equipmentGroupId]="map.groupId" [attr.count]="map.count" [attr.locationId]="map.locationId"
+                              *ngIf="map.count">
+                              <p>{{map.equipmentTypeName + '(' + map.attributeValues[0].value + ')'}} </p>
+                              <span class="badge badge-dark top_tooltip">{{map.count}}
+                                <i class="fa fa-info-circle pl-1" aria-hidden="true"></i>
+
+                                <div class="toltip_content">
+                                  <ng-container *ngFor="let attr of map.attributeValues; let i=index">
+                                    <div *ngIf="!attr.attribute.isSpecific&&attr.attribute.name!='Quantity'" class="toltip_details">
+                                      <label>{{attr.attribute.name}} - </label>
+                                      <span>{{attr.value ? attr.value :'ND'}}</span>
+                                    </div>
+                                  </ng-container>
+                                </div>
+                              </span>
+                              <div class="action">
+                                <i (click)="editMapping(map, arm)" class="fa fa-pencil-square-o br-r" aria-hidden="true" *ngIf="editable"></i>
+                                <i class="fa fa-gear fa-spin" (click)="onConfigure(map, arm)" *ngIf="!editable"></i>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </td>
+                </tr>
+                <tr *ngFor="let lane of arm.lanes" class="lane">
+                  <td>
+                    <span class="subtitle">
+                      {{lane.name}}
+                    </span>
+                  </td>
+                  <td class="droppable" [attr.locationId]="location.id" [attr.laneId]="lane.id" [attr.armId]="arm.id" (drop)="drop($event, lane)"
+                    (dragover)="allowDrop($event)" (dragenter)="dragenter($event)" (dragleave)="dragleave($event)" [attr.id]="'parent'+lane.id">
+                    <ng-container *ngFor="let eqp of lane.equipments; let l=index;">
+                      <div class="pkkkkk" *ngIf="eqp.count>0">
+                        <div class="equipment_group_title" data-toggle="collapse" [attr.data-target]="'#'+lane.id+eqp.equipmentTypeId+l" aria-expanded="false">
+                          {{eqp.equipmentTypeName}}
+                          <span class="badge badge-dark">{{eqp.count}}</span>
+                          <i class="fa fa-minus" aria-hidden="true"></i>
+                          <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                        <div class="select_item_list collapse" [attr.id]="lane.id+eqp.equipmentTypeId+l" [attr.data-parent]="'#parent'+lane.id">
+                          <ng-container *ngFor="let map of eqp.list">
+                            <div class="draggable" [attr.equipmentGroupId]="map.groupId" [attr.count]="map.count" [attr.locationId]="map.locationId"
+                              *ngIf="map.count">
+                              <p>{{map.equipmentTypeName + '(' + map.attributeValues[0].value + ')'}}</p>
+                              <span class="badge badge-dark top_tooltip">{{map.count}}
+                                <i class="fa fa-info-circle pl-1" aria-hidden="true"></i>
+
+                                <div class="toltip_content">
+                                  <ng-container *ngFor="let attr of map.attributeValues; let i=index">
+                                    <div *ngIf="!attr.attribute.isSpecific&&attr.attribute.name!='Quantity'" class="toltip_details">
+                                      <label>{{attr.attribute.name}} - </label>
+                                      <span>{{attr.value ? attr.value :'ND'}}</span>
+                                    </div>
+                                  </ng-container>
+                                </div>
+                              </span>
+                              <div class="action">
+                                <i class="fa fa-pencil-square-o br-r" aria-hidden="true" (click)="editMapping(map, lane)" *ngIf="editable"></i>
+                                <i class="fa fa-gear fa-spin" (click)="onConfigure(map, lane)" *ngIf="!editable"></i>
+                              </div>
+                            </div>
+                          </ng-container>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-1" *ngIf="editable">
+        <div class="icon">
+          <img src="assets/images/back.svg" alt="">
+        </div>
+      </div>
+      <div class="col-3 pl-0" *ngIf="editable">
+        <div class="table_scroll border">
+          <table class="table mb-0">
+            <thead>
+              <tr>
+                <th>Available Equipments</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="equipments" id="parentMultiCollapse">
+                    <ng-container *ngFor="let eqpGrp of equipmentMapping">
+                      <div class="equipment-group" data-toggle="collapse" [attr.data-target]="'#multiCollapse'+eqpGrp.equipmentTypeId" aria-expanded="false"
+                        *ngIf="eqpGrp.availableCount>0">
+                        {{eqpGrp.equipmentTypeName}}
+                        <span class="badge badge-dark">{{eqpGrp.availableCount}}</span>
+                        <i class="fa fa-minus" aria-hidden="true"></i>
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                      </div>
+                      <div class="item_list collapse" [attr.id]="'multiCollapse'+eqpGrp.equipmentTypeId" [attr.data-parent]="'#parentMultiCollapse'"
+                        *ngIf="eqpGrp.availableCount>0">
+                        <ng-container *ngFor="let eqp of eqpGrp.list;">
+                          <div class="draggable" [attr.draggable]="eqp.availableCount>0" (dragstart)="drag($event, eqp, eqpGrp)" (dragend)="dragend($event, eqp)"
+                            [attr.equipmentGroupId]="eqp.groupId" [attr.count]="eqp.count" *ngIf="eqp.availableCount>0">
+                            {{eqp.equipmentTypeName + '(' + eqp.attributeValues[0].value + ')'}}
+                            <span class="badge badge-dark top_tooltip">{{eqp.availableCount}}
+                              <i class="fa fa-info-circle pl-1" aria-hidden="true"></i>
+                              <div class="toltip_content">
+                                <ng-container *ngFor="let attr of eqp.attributeValues; let i=index">
+                                  <div *ngIf="!attr.attribute.isSpecific&&attr.attribute.name!='Quantity'" class="toltip_details">
+                                    <label>{{attr.attribute.name}} - </label>
+                                    <span>{{attr.value ? attr.value :'ND'}}</span>
+                                  </div>
+                                </ng-container>
+                              </div>
+                            </span>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </ng-container>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="button" class="saveBtn float-right" (click)="onSubmit()" *ngIf="editable">Submit</button>
+  <button type="button" class="cancelBtn float-right mr-3" (click)="reset()" *ngIf="editable">Cancel</button>
+  <button type="button" class="addlBtn float-right" (click)="editable=!editable" *ngIf="!editable">Edit or Map</button>
+</div>
+<div class="container" *ngIf="loader">
+  <div>
+    <img src="assets/gif2.gif" class="loader d-block mx-auto mt-5" alt="">
+  </div>
+</div>
+
+<div class="modal_main">
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content" *ngIf="draggedItem">
+
+        <!-- Modal Header -->
+        <div class="modal-header custom-header">
+          <h5 class="modal-title">Equipment Mapping</h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <ng-container *ngFor="let attr of draggedItem.attributeValues; let i=index">
+            <div class="equipment_details" *ngIf="!attr.attribute.isSpecific&&attr.attribute.name!='Quantity'">
+              <label>{{attr.attribute.name}}: </label>
+              <span>{{attr.value ? attr.value :'ND'}}</span>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="draggedItem.equipments?.length;else ELSEBLOCK">
+            <div class="popup_table">
+              <h6>Defined Specific Attributes</h6>
+              <p *ngIf="draggedItem.validationError" style="color: red">{{draggedItem.validationError}}</p>
+              <table class="table table-bordered mb-0">
+                <thead>
+                  <tr>
+                    <th>*</th>
+                    <th>Equipment</th>
+                    <th *ngFor="let attrVal of draggedItem.equipments[0].attributeValues">{{attrVal.attributeName}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let eqp of draggedItem.equipments; let j= index">
+                    <td>
+                      <div class="tab_chck">
+                        <input type="checkbox" [attr.name]="eqp.equipmentName" [attr.id]="eqp.equipmentId" [(ngModel)]="equipmentIds[eqp.equipmentId]">
+                        <span>.</span>
+                      </div>
+                    </td>
+                    <td>{{eqp.equipmentName}}</td>
+                    <td *ngFor="let attrVal of eqp.attributeValues">{{attrVal.value}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </ng-container>
+          <ng-template #ELSEBLOCK>
+            <form action="" [formGroup]="countForm">
+              <div class="count_form">
+                <label for="count">Count: </label>
+                <div class="inputright">
+                  <input class="form-control" type="number" name="count" formControlName="count">
+                  <div *ngIf="countForm.controls.count.invalid && (countForm.controls.count.dirty || countForm.controls.count.touched)">
+                    <div class="error" *ngIf="countForm.controls.count.errors.required">
+                      Count is required.
+                    </div>
+                    <div class="error" *ngIf="countForm.controls.count.errors.max">
+                      Count should not greater than {{countForm.controls.count.errors.max.max}}
+                    </div>
+                    <div class="error" *ngIf="countForm.controls.count.errors.min">
+                      Count should not be negative
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </ng-template>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="saveBtn" (click)="submitMappingForm()" [disabled]="countForm.invalid">Submit</button>
+          <button type="button" class="cancelBtn" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade bd-example-modal-lg p-5" id="equipmentDetailModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header custom-header">
+          <h5 class="modal-title">{{this.draggedItem.equipmentTypeName}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body pb-0">
+          <div class="container mt-5" *ngIf="process">
+            <div class="row">
+              <div class="col-12 ">
+                <img src="assets/gif2.gif" class="img-fluid d-block mx-auto mt-5" alt="">
+              </div>
+            </div>
+          </div>
+
+          <div class="container p-0" *ngIf="!process">
+            <div class="row">
+              <div class="col-6 pk" *ngFor="let item of countGroupValue">
+                <div class="equipment_details_box mb-3 flipInY">
+                  <div class="card-header d-flex justify-content-between">
+                    <div class="sm-header">{{item.name}}</div>
+                    <button type="button" class="camera-_edit" data-dismiss="modal" style="cursor: pointer;" *ngIf="draggedItem.cameraConfiguration"
+                      (click)="negativeToConfiguration(item.id)">
+                      <i class="fa fa-sliders border-0"></i>
+                    </button>
+                  </div>
+                  <div class="bg-white pt-2 pb-2 border">
+                    <ng-container *ngFor="let attr of item.attributeValues">
+                      <div class="details" *ngIf="attr.attribute.name!='Quantity'">
+                        <label>{{attr.attribute.name}}: </label>
+                        <span> {{attr.value ? attr.value : 'NA' }}</span>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="cancelBtn" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

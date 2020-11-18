@@ -1,0 +1,1072 @@
+
+
+
+
+//JSON DATA
+
+
+//Location Add
+
+{
+	"name":"PeeraGarhi Junction",
+	"longitude":"123.5",
+	"latitude":"231.1",
+	"address":"Delhi",
+	"locationTypeId":"LOCTYP0001",
+	"arms":[
+		
+		{
+			"direction":"Peeragarhi to Nangloi",
+			"lanes":[
+				{
+					"directionIds":[685512242844825]
+				},
+				{
+					"directionIds":[72932732558618,460353222272411]
+				}
+				]
+		},
+		{
+			"direction":"peeragarhi to Subhash Nagar",
+			"lanes":[
+				{
+					"directionIds":[685512242844825]
+				},
+				{
+					"directionIds":[72932732558618,460353222272411]
+				}
+				]
+		},
+		{
+			"direction":"peeragarhi to Madhuban chowk",
+			"lanes":[
+				{
+					"directionIds":[685512242844825]
+				},
+				{
+					"directionIds":[72932732558618,460353222272411]
+				}
+				]
+		}],
+		"attributes":[
+			
+			{
+				"locationTypeAttributeId":"AT01LOCTYP0001",
+				"value":"ZONE2"
+			},
+			{
+				"locationTypeAttributeId":"AT02LOCTYP0001",
+				"value":23
+			},
+			{
+				"locationTypeAttributeId":"AT03LOCTYP0001",
+				"value":"Ward1"
+			}
+			
+			
+			]
+		,
+		
+		"vehicleTypeIds":[847773711986204,235194201699997,622614691413790]
+		
+		
+}
+
+//equipment save
+
+{
+	
+	"count":10,
+	"typeId":"EQT0001",
+	"attributesValue":[
+		{
+		"attributeId":"AT01EQT0001",
+		"value":"RKGIT"
+		},
+		{
+		"attributeId":"AT02EQT0001",
+		"value":"2018"
+		},
+		{
+		"attributeId":"AT03EQT0001",
+		"value":"2.0"
+		}
+		]
+	
+}
+
+
+
+//Location equipment map
+
+{
+	
+"list":[
+	{
+		"armId":"ARM1PDC0002",
+		"equipmentGroupId":"EQMSTGRP0002",
+		"count":10
+	},
+		{
+		"armId":"ARM1PDC0002",
+		"equipmentGroupId":"EQMSTGRP0001",
+		"count":16
+	},
+		{
+		"armId":"ARM1PDC0002",
+		"laneId":"L1A1PDC0002",
+		"equipmentGroupId":"EQMSTGRP0003",
+		"count":2
+	}
+	
+	]
+	
+}
+
+
+//Camera details
+{
+    "username":"Camera123",
+	"password":"Cam123",
+	"ipAddress":"192.2.2.1",
+	"cameraType":"FRONT",
+	"fps":3,
+	"frameWidth":232,
+	"frameHeight":212,
+	"scaleFactor":0.8,
+	"codecs":"camera1"
+
+
+}
+
+//camera image upload
+
+form-date.............
+image   : file(abc.jpg)
+
+
+//camera image coordinates -------------list of zones
+
+{
+	"list":[
+		{
+			"id":695547423972408,
+			"aPointXCoordinate":0,
+			"aPointYCoordinate":0,
+			"bPointXCoordinate":5,
+			"bPointYCoordinate":8,
+			"cPointXCoordinate":10,
+			"cPointYCoordinate":10,
+			"dPointXCoordinate":0,
+			"dPointYCoordinate":10
+			
+		},
+			{
+			"aPointXCoordinate":10,
+			"aPointYCoordinate":0,
+			"bPointXCoordinate":30,
+			"bPointYCoordinate":0,
+			"cPointXCoordinate":30,
+			"cPointYCoordinate":20,
+			"dPointXCoordinate":0,
+			"dPointYCoordinate":20
+			
+		},
+			{
+			"aPointXCoordinate":20,
+			"aPointYCoordinate":0,
+			"bPointXCoordinate":30,
+			"bPointYCoordinate":0,
+			"cPointXCoordinate":30,
+			"cPointYCoordinate":32,
+			"dPointXCoordinate":0,
+			"dPointYCoordinate":30
+			
+		}
+		
+		
+		
+		
+		]
+}
+
+
+//camera image coordinate---------------------main coordinate save
+
+{
+	 "id": 308126934258615,
+    "aPointXCoordinate": 0,
+    "aPointYCoordinate": 0,
+    "bPointXCoordinate": 100,
+    "bPointYCoordinate": 0,
+    "cPointXCoordinate": 100,
+    "cPointYCoordinate": 150,
+    "dPointXCoordinate": 0,
+    "dPointYCoordinate": 100
+	
+}
+
+
+////Incident save
+
+
+
+	{
+
+	"list":[
+{
+
+"name":"Stopped Vehicle",
+"incidentType":"VEHICLE_INCIDENT",
+"attributes":[
+
+{
+"name":"Minimum Incident Duration",
+"dataType":"Number",
+"unit":"sec"
+},
+{
+"name":"Output Video Duration",
+"dataType":"Number",
+"unit":"sec"
+}
+]
+
+},
+{
+
+"name":"Vehicle Reverse",
+"incidentType":"VEHICLE_INCIDENT",
+"attributes":[
+
+{
+"name":"Minimum Incident Duration",
+"dataType":"Number",
+"unit":"sec"
+},
+{
+"name":"Output Video Duration",
+"dataType":"Number",
+"unit":"sec"
+}
+]
+
+},
+{
+
+"name":"Over Speeding",
+"incidentType":"VEHICLE_INCIDENT",
+"attributes":[
+
+{
+"name":"Minimum Incident Duration",
+"dataType":"Number",
+"unit":"sec"
+},
+{
+"name":"Output Video Duration",
+"dataType":"Number",
+"unit":"sec"
+},
+{
+"name":"Over Speed Limit",
+"dataType":"Number",
+"unit":"km/hr"
+
+}
+]
+},
+{
+
+"name":"Under Speeding",
+"incidentType":"VEHICLE_INCIDENT",
+"attributes":[
+
+{
+"name":"Minimum Incident Duration",
+"dataType":"Number",
+"unit":"sec"
+},
+{
+"name":"Output Video Duration",
+"dataType":"Number",
+"unit":"sec"
+},
+{
+"name":"Under Speed Limit",
+"dataType":"Number",
+"unit":"km/hr"
+
+}]
+},
+{
+
+"name":"Vehicle Acceleration",
+"incidentType":"VEHICLE_INCIDENT",
+"attributes":[
+
+{
+"name":"Output Video Duration",
+"dataType":"Number",
+"unit":"sec"
+},
+{
+"name":"Speed Difference",
+"dataType":"Number",
+"unit":"km/hr"
+
+},
+{
+"name":"Acceleration Interval",
+"dataType":"Number",
+"unit":"sec"
+}
+]
+},
+
+
+{
+
+"name":"Vehicle Deaccleration",
+"incidentType":"VEHICLE_INCIDENT",
+"attributes":[
+
+{
+"name":"Output Video Duration",
+"dataType":"Number",
+"unit":"sec"
+},
+{
+"name":"Speed Difference",
+"dataType":"Number",
+"unit":"km/hr"
+
+},
+{
+"name":"Deacceleration Interval",
+"dataType":"Number",
+"unit":"sec"
+}
+
+
+]
+
+},
+
+{
+
+"name":"No Helmet",
+"incidentType":"VEHICLE_INCIDENT",
+"attributes":[
+
+{
+"name":"Output Video Duration",
+"dataType":"Number",
+"unit":"sec"
+},
+{
+"name":"Triple Riding on Bike",
+"dataType":"Checkbox"
+
+}
+]
+}
+
+,
+{
+
+"name":"Crossed The Stop Line",
+"incidentType":"VEHICLE_INCIDENT",
+"attributes":[
+
+{
+"name":"Minimum Incident Duration",
+"dataType":"Number",
+"unit":"sec"
+},
+{
+"name":"Output Video Duration",
+"dataType":"Number",
+"unit":"sec"
+}
+]
+
+},
+{
+
+"name":"Crossed The Red Signal",
+"incidentType":"VEHICLE_INCIDENT",
+"attributes":[
+
+{
+"name":"Minimum Incident Duration",
+"dataType":"Number",
+"unit":"sec"
+},
+{
+"name":"Output Video Duration",
+"dataType":"Number",
+"unit":"sec"
+}
+]
+
+},
+{
+"name":"Congestion In Traffic",
+"incidentType":"TRAFFIC_INCIDENT",
+"attributes":[
+{
+"name":"Max Speed",
+"dataType":"Number",
+"unit":"km/hr"
+},
+{
+"name":"Min Speed",
+"dataType":"Number",
+"unit":"km/hr"
+},
+{
+"name":"Vehicle Count",
+"dataType":"Number"
+
+}
+
+]
+}
+,
+{
+"name":"Normal Traffic",
+"incidentType":"TRAFFIC_INCIDENT",
+"attributes":[
+{
+"name":"Max Speed",
+"dataType":"Number",
+"unit":"km/hr"
+},
+{
+"name":"Min Speed",
+"dataType":"Number",
+"unit":"km/hr"
+},
+{
+"name":"Vehicle Count",
+"dataType":"Number"
+
+}
+
+]
+}
+,
+{
+"name":"Delayed Traffic",
+"incidentType":"TRAFFIC_INCIDENT",
+"attributes":[
+{
+"name":"Max Speed",
+"dataType":"Number",
+"unit":"km/hr"
+},
+{
+"name":"Min Speed",
+"dataType":"Number",
+"unit":"km/hr"
+},
+{
+"name":"Vehicle Count",
+"dataType":"Number"
+
+}
+
+]
+}
+,
+{
+"name":"Dense Traffic",
+"incidentType":"TRAFFIC_INCIDENT",
+"attributes":[
+{
+"name":"Max Speed",
+"dataType":"Number",
+"unit":"km/hr"
+},
+{
+"name":"Min Speed",
+"dataType":"Number",
+"unit":"km/hr"
+},
+{
+"name":"Vehicle Count",
+"dataType":"Number"
+
+}
+
+]
+}
+,
+{
+"name":"Vehicle Stop-Vehicle Go",
+"incidentType":"TRAFFIC_INCIDENT",
+"attributes":[
+{
+"name":"Max Speed",
+"dataType":"Number",
+"unit":"km/hr"
+},
+{
+"name":"Min Speed",
+"dataType":"Number",
+"unit":"km/hr"
+},
+{
+"name":"Vehicle Count",
+"dataType":"Number"
+
+}
+
+]
+}
+,
+{
+"name":"Queue",
+"incidentType":"TRAFFIC_INCIDENT",
+"attributes":[
+{
+"name":"Max Speed",
+"dataType":"Number",
+"unit":"km/hr"
+},
+{
+"name":"Min Speed",
+"dataType":"Number",
+"unit":"km/hr"
+},
+{
+"name":"Vehicle Count",
+"dataType":"Number"
+
+}
+
+]
+}
+,
+{
+"name":"Left Free",
+"incidentType":"TRAFFIC_INCIDENT",
+"attributes":[
+{
+"name":"Left Free",
+"dataType":"Checkbox"
+}
+
+]
+}
+,
+{
+"name":"Lane Occupancy",
+"incidentType":"TRAFFIC_INCIDENT",
+"attributes":[
+{
+"name":"Lane Occupancy",
+"dataType":"Checkbox"
+}
+
+]
+},
+
+{
+
+"name":"Pedestrian",
+"incidentType":"OTHER",
+"attributes":[
+
+{
+"name":"Pedestrian Min Duration",
+"dataType":"Number",
+"unit":"sec"
+},
+{
+"name":"Pedestrian Video Duration",
+"dataType":"Number",
+"unit":"sec"
+}
+
+
+]
+},
+{
+
+"name":"People Collection",
+"incidentType":"OTHER",
+"attributes":[
+
+{
+"name":"Max Distance",
+"dataType":"Number",
+"unit":"km"
+},
+{
+"name":"Max Count",
+"dataType":"Number"
+}
+
+
+]
+},
+
+{
+
+"name":"Fallen Object",
+"incidentType":"OTHER",
+"attributes":[
+
+{
+"name":"Length",
+"dataType":"Number",
+"unit":"mts"
+},
+{
+"name":"Width",
+"dataType":"Number",
+"unit":"mts"
+}
+
+
+]
+},
+{
+"name":"Automatic Number Plate Recognition",
+"incidentType":"OTHER",
+"attributes":[
+{
+"name":"Automatic Number Plate Recognition",
+"dataType":"Checkbox"
+}
+
+]
+},
+
+{
+
+"name":"Vehicle Classification And Counting",
+"incidentType":"OTHER",
+"attributes":[
+
+{
+"name":"Duration for generating logs",
+"dataType":"Number",
+"unit":"mins"
+},
+{
+"name":"Do You also want to create Video Logs",
+"dataType":"Checkbox"
+}
+
+
+]
+},
+{
+
+"name":"Speed",
+"incidentType":"OTHER",
+"attributes":[
+
+{
+"name":"Max Speed Limit",
+"dataType":"Number",
+"unit":"km/hr"
+
+},
+{
+"name":"Camera Fps",
+"dataType":"Number"
+}
+
+
+]
+},
+{
+"name":"Normal Weather",
+"incidentType":"WEATHER_INCIDENT",
+"attributes":[
+{
+"name":"Normal Weather",
+"dataType":"Checkbox"
+}
+
+]
+
+},
+{
+"name":"Smoke Weather",
+"incidentType":"WEATHER_INCIDENT",
+"attributes":[
+{
+"name":"Smoke Weather",
+"dataType":"Checkbox"
+}
+
+]
+},
+{
+"name":"Fog Weather",
+"incidentType":"WEATHER_INCIDENT",
+"attributes":[
+{
+"name":"Fog Weather",
+"dataType":"Checkbox"
+}
+
+]
+
+}
+
+
+]
+
+
+}
+
+
+
+
+////Camera Incident defination ------vehicle incident save
+
+{
+
+"incidentType":"VEHICLE_INCIDENT",
+"incidents":[
+
+{
+"name":"Crossed The Stop Line",
+"attributeValues":[
+{
+"attributeId":93003094813784,
+"value":"60"
+},
+{
+"attributeId":480423584527577
+,
+"value":"10"
+}
+
+
+]
+
+},
+{
+"name":"Crossed The Red Signal",
+"attributeValues":[
+{
+"attributeId":93003094813784,
+"value":"60"
+},
+{
+"attributeId":480423584527577,
+"value":"10"
+}
+
+
+]
+
+
+},
+{
+
+"name":"Under Speeding",
+"attributeValues":[
+{
+"attributeId":93003094813784,
+"value":"60"
+},
+{
+"attributeId":480423584527577,
+"value":"10"
+}
+,
+{
+"attributeId":255264563955163,
+"value":"10"
+}
+
+
+]
+
+
+},
+{
+
+"name":"Over Speeding",
+"attributeValues":[
+{
+"attributeId":93003094813784,
+"value":"60"
+},
+{
+"attributeId":480423584527577,
+"value":"10"
+}
+,
+{
+"attributeId":867844074241370,
+"value":"80"
+}
+
+
+]
+
+
+}
+
+
+
+
+]
+
+
+
+}
+
+
+////update vehicle incident
+
+
+{
+
+"incidentType":"VEHICLE_INCIDENT",
+"incidents":[
+
+{
+"name":"Crossed The Stop Line",
+"attributeValues":[
+{
+"attributeId":93003094813784,
+"value":"60"
+},
+{
+"attributeId":480423584527577
+,
+"value":"10"
+}
+
+
+]
+
+},
+{
+"name":"Crossed The Red Signal",
+"attributeValues":[
+{
+"attributeId":93003094813784,
+"value":"60"
+},
+{
+"attributeId":480423584527577,
+"value":"10"
+}
+
+
+]
+
+
+},
+{
+"name":"No Helmet",
+"attributeValues":[
+{
+"attributeId":804946522810335,
+"value":"true"
+},
+{
+"attributeId":480423584527577
+,
+"value":"10"
+}
+
+]
+}
+
+
+
+
+]
+
+
+
+}
+
+
+///camera incident defination----traffic incident save
+
+
+
+{
+
+"incidentType":"TRAFFIC_INCIDENT",
+"incidents":[
+
+{
+
+"name":"Vehicle Stop-Vehicle Go",
+"attributeValues":[
+{
+"attributeId":192367012524128,
+"value":"60"
+},
+{
+"attributeId":579787502237921,
+"value":"10"
+}
+,
+{
+"attributeId":967207991951714,
+"value":"90"
+}
+
+
+]
+
+
+},
+
+{
+
+"name":"Delayed Traffic",
+"attributeValues":[
+{
+"attributeId":192367012524128,
+"value":"60"
+},
+{
+"attributeId":579787502237921,
+"value":"10"
+}
+,
+{
+"attributeId":967207991951714,
+"value":"90"
+}
+
+
+]
+
+
+},
+{
+
+"name":"Congestion In Traffic",
+"attributeValues":[
+{
+"attributeId":192367012524128,
+"value":"60"
+},
+{
+"attributeId":579787502237921,
+"value":"10"
+}
+,
+{
+"attributeId":967207991951714,
+"value":"90"
+}
+
+
+]
+
+
+},
+{
+
+"name":"Normal Traffic",
+"attributeValues":[
+{
+"attributeId":192367012524128,
+"value":"60"
+},
+{
+"attributeId":579787502237921,
+"value":"10"
+}
+,
+{
+"attributeId":967207991951714,
+"value":"90"
+}
+
+
+]
+
+
+},
+{
+"name":"Left Free",
+"attributeValues":[
+{
+"attributeId":354628481665507,
+"value":"true"
+}]
+}
+
+]
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+<div class="header_bottom">
+    <div class="header_title">
+        <h3>Location</h3>
+    </div>
+    <div class="search_bar">
+        <form [formGroup]="myForm">
+            <input type="text" class="form-control" formControlName="search" placeholder="Search" (ngModelChange)="search($event)">
+            <i class="fa fa-search" aria-hidden="true"></i>
+
+        </form>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="site_content">
+        <div class="container-fluid p-0" *ngIf="!loader">
+            <div class="row">
+
+                <div class="addequipment">
+                    <button class="btn" [routerLink]="['add']" routerLinkActive="router-link-active" *ngIf="givenAuthorities.includes('LOCATION_CREATE')">
+                        <i>+</i>
+                        <span>New Location</span>
+                    </button>
+                </div>
+            </div>
+            <div class="table_scroll">
+                <div class="table_main">
+                    <table class="table table-bordered mb-0">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th style="min-width: 180px;">Name</th>
+                                <th style="min-width: 120px;">Location Type</th>
+                                <th>Latitude</th>
+                                <th>Longitude</th>
+                                <th>Address</th>
+                                <th style="min-width: 100px;" *ngIf="givenAuthorities.includes('LOCATION_DELETE') || givenAuthorities.includes('LOCATION_UPDATE')">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of allLocations | filter:term; index as i">
+                                <td>{{i+1}}</td>
+                                <td>{{item.name}}</td>
+                                <td>{{item.locationTypeName}}</td>
+                                <td>{{item.latitude}}</td>
+                                <td>{{item.longitude}}</td>
+                                <td>{{item.address}}</td>
+                                <td>
+                                    <button class="btn mr-2" routerLinkActive="router-link-active" (click)="updateLocation(item.id)">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </button>
+                                    <button class="btn" *ngIf="givenAuthorities.includes('LOCATION_DELETE')" (click)="deleteLocation(item,i)">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" *ngIf="loader">
+    <div *ngIf="loader">
+        <img src="assets/gif2.gif" class="loader d-block mx-auto mt-5" alt="">
+    </div>
+</div>

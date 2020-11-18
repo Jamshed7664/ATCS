@@ -1,0 +1,47 @@
+<div class="container-fluid">
+        <div #map id="mapDiv" class="m-0"></div>
+        <div #bottomRightControl></div>
+        <div #satellite id="satelliteDiv" class="m-0"></div>
+        <div #topRightControl></div>
+        <div>
+            <router-outlet></router-outlet>
+        </div>
+</div>
+
+<div class="junction_info">
+    <button> <img src="assets/images/info.png" alt=""> </button>
+    <div class="junction_details_main">
+        <div class="junction_details">
+          <div class="img">
+            <img src="assets/svg/junction.svg" alt="">
+          </div>
+          <div class="title">
+            <h3>Junction</h3>
+          </div>
+        </div>
+        <div class="junction_details">
+            <div class="img">
+              <img src="assets/svg/highway.svg" alt="">
+            </div>
+            <div class="title">
+              <h3>Highway</h3>
+            </div>
+          </div>
+          <div class="junction_details">
+            <div class="img">
+              <img src="assets/svg/control_room.svg" alt="">
+            </div>
+            <div class="title">
+              <h3>Control Room</h3>
+            </div>
+          </div>
+          <div class="junction_details">
+            <div class="img">
+              <img src="assets/svg/datacentre.svg" alt="">
+            </div>
+            <div class="title">
+              <h3>Data Centre</h3>
+            </div>
+          </div>
+    </div>
+</div>

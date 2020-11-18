@@ -1,0 +1,28 @@
+<div *ngIf="!loader">
+    <img src="assets/gif.gif" class="d-block mx-auto" alt="">
+</div>
+<div *ngIf="loader">
+    <!-- <div class="col-4 mt-3 offset-8">
+    <input type="text" placeholder="Search here..." id="myInput" (keyup)=onKeydownEvent() class="form-control ">
+  </div> -->
+    <table class="table table-bordered table-hover mt-2" id="myTable">
+        <thead>
+            <tr style="background-color: transparent;">
+                <th scope="col" class="text-center">Search</th>
+                <th scope="col" class="text-center"><input type="text" placeholder="Search here..." id="myInput" (keyup)=onKeydownEvent() class="form-control "></th>
+            </tr>
+            <tr>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Authority Name</th>
+                <!-- <th scope="col" >View Description</th> -->
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of authorities; index as i">
+                <td scope="row" class="text-center">{{i+1}}</td>
+                <td class="text-center">{{item.name}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

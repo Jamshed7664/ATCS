@@ -1,0 +1,140 @@
+<div class="header_bottom">
+  <div class="header_title">
+    <h3>{{equipmentDetails.equipmentMapping?.locationName}}
+      <i class="fa fa-angle-double-right" aria-hidden="true" *ngIf="equipmentDetails.equipmentMapping&&equipmentDetails.equipmentMapping.armName"></i>
+      <span>{{equipmentDetails.equipmentMapping?.armName}}</span>
+      <i class="fa fa-angle-double-right" aria-hidden="true" *ngIf="equipmentDetails.equipmentMapping&&equipmentDetails.equipmentMapping.laneName"></i>
+     <span> {{equipmentDetails.equipmentMapping?.laneName}}</span>
+    </h3>
+  </div>
+  <div class="camrea_details">
+    <div class="label">
+      <div class="camera_content">
+        <label>{{equipmentDetails.equipmentTypeName}}</label> -
+        <span>{{equipmentDetails.name}}</span>
+      </div>
+    </div>
+    <div class="label">
+      <ng-container *ngFor="let attr of equipmentDetails.attributeValues">
+        <div class="camera_content" *ngIf="attr.attribute.name=='Model'">
+          <label>Modal No.</label> -
+          <span>{{attr.value}}</span>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<div class="site_content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-5 pr-0">
+        <div class="canvas_main">
+          <div class="canvas_header" #canvasWindow>
+            <h3>Select Coordinates</h3>
+          </div>
+          <div class="loader_outer">
+            <div class="canvas-cover" [hidden]="imageLoading">
+              <canvas id="canvas">
+              </canvas>
+            </div>
+            <img src="assets/gif2.gif" class="loader  mx-auto" alt="" *ngIf="imageLoading">
+          </div>
+        </div>
+
+      </div>
+      <div class="col-7">
+        <div class="camera_details">
+          <div class="camera_header">
+            <h3> Region Coordinates</h3>
+          </div>
+          <div class="loader_outer2">
+            <div class="details_content" *ngIf="!coordinateLoading">
+              <ng-container *ngFor="let region of regionNames;let i =index">
+                <ng-container *ngIf="region!='nextPoint' && region!='nextRegion'">
+                  <ng-container *ngIf="!(region=='RED_LAMP'&&(equipmentDetails.equipmentMapping?.locationTypeName == 'Highway'||equipmentDetails.equipmentMapping?.laneId))">
+                    <table class="table mb-3" *ngIf="!boundaryCordinates[region].parent || boundaryCordinates[region].parent && boundaryCordinates[boundaryCordinates[region].parent].checked">
+                      <caption class="check">
+                        <input type="checkbox" name="region" id="" [(ngModel)]="boundaryCordinates[region].checked" (ngModelChange)="onChangeRegion($event, region)">
+                        <label for="region">
+                          {{boundaryCordinates[region].question}}
+                        </label>
+                      </caption>
+                      <thead>
+                        <tr>
+                          <th class="text-left" style="width: 90px;">Region</th>
+                          <th>A (x,y)</th>
+                          <th>B (x,y)</th>
+                          <th>C (x,y)</th>
+                          <th>D (x,y)</th>
+                          <th style="width: 110px;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="text-left">{{regions[region] | titlecase}}</td>
+                          <td *ngFor="let point of getpointNames(region)">{{boundaryCordinates[region][point] | json}}
+                          </td>
+                          <td>
+                            <button *ngIf="!isAlreadyCordinatesPresent(region)" type="button" (click)="onRegionSelect(region)" [disabled]="!boundaryCordinates[region].checked"
+                              class="select_codinate">Select Coordinates
+                            </button>
+                            <button *ngIf="isAlreadyCordinatesPresent(region)" type="button" (click)="onRetake(region, true)" [disabled]="!boundaryCordinates[region].checked"
+                              class="change_codinate">Change Coordinates
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </ng-container>
+                </ng-container>
+
+              </ng-container>
+              <form [formGroup]="cameraImageCoordinateForm" (ngSubmit)="onSubmit()">
+                <ng-container *ngIf="isRoadAlignmentValidate()">
+                  <div class="road_alignment">
+                    <h3>Road Alignment</h3>
+                    <div class="road_content" formGroupName="roadAlignmentProperties">
+                      <div class="road_col">
+                        <div class="form-group">
+                          <label for="">Road Length (mts)
+                            <span class="text-danger">*</span>
+                          </label>
+                          <input type="number" class="form-control" formControlName='roadLength' placeholder="Road Length">
+                        </div>
+                      </div>
+                      <div class="road_col">
+                        <div class="form-group">
+                          <label for="">Road breadth (mts)
+                            <span class="text-danger">*</span>
+                          </label>
+                          <input type="number" class="form-control" formControlName='roadBreadth' placeholder="Road breadth">
+
+                        </div>
+                      </div>
+                      <div class="road_col">
+                        <div class="form-group">
+                          <label for="">Maximum distance (mts)
+                            <span class="text-danger">*</span>
+                          </label>
+                          <input type="number" class="form-control" formControlName='maxDistance' placeholder="Maximum distance">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <div class="text-right">
+                  <button type="button" class="cancelBtn ml-2" (click)="back()">Cancel</button>
+                  <button type="submit" class="saveBtn ml-2" [disabled]="drawing || cameraImageCoordinateForm.invalid">Submit</button>
+                  <button type="button" class="cancelBtn ml-2" (click)="reset()" [disabled]="disableResetButton">Reset</button>
+                  <button type="button" class="addlBtn ml-2" [routerLink]="['/home/incident-definition',paramsId]" [disabled]="!cameraImageCoordinateForm.controls.imageCoordinates.controls.length">Next</button>
+                </div>
+              </form>
+            </div>
+            <img src="assets/gif2.gif" class="loader  mx-auto" alt="" *ngIf="coordinateLoading">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

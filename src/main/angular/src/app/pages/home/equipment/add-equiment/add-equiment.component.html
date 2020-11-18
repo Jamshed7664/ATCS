@@ -1,0 +1,91 @@
+<div class="header_bottom">
+    <div class="header_title">
+        <button type="button" class="back_btn" [routerLink]="['/home/equipments']" routerLinkActive="router-link-active">
+            <img src="assets/arrow-back.png" alt="">
+        </button>
+        <h3>Add {{equipmentType.name}}</h3>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="site_content">
+        <form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()" class="form-horizontal location_form mb-0 ">
+            <div class="container-fluid">
+                <div class="row">
+                    <ng-container formArrayName="attributesValue">
+                        <ng-container *ngFor="let attrsValue of equipmentForm.controls.attributesValue.controls; let k = index" formGroupName={{k}}>
+                            <div class="col-lg-4" *ngIf="attrsValue.controls.isSpecific.value">
+                                <div class="form-group" formArrayName="attributeValues">
+                                    <div *ngIf="attrsValue.controls.htmlInputType.value=='dropdown';else elseBlock">
+                                        <label>{{attrsValue.controls.name.value}}</label>
+                                        <div *ngFor="let attr of attrsValue.controls.attributeValues.controls;let i = index;" formGroupName={{i}}>
+                                            <select class="form-control" formControlName="value">
+                                                <option value="" disabled>Choose your Options</option>
+                                                <option *ngFor="let item of attrsValue.controls.options.value" value="{{item}}">{{item}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <ng-template #elseBlock>
+                                        <div class="check" *ngIf="attrsValue.controls.htmlInputType.value=='checkbox'">{{attr.value.value}}
+                                            <div *ngFor="let attr of attrsValue.controls.attributeValues.controls;let i = index" formGroupName={{i}}>
+                                                <input id="cehckbox" type="checkbox" class="form-control" placeholder="Input attribute" formControlName="value">
+                                                <label for="cehckbox">{{attrsValue.controls.name.value}}</label>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="attrsValue.controls.htmlInputType.value!='checkbox'">
+                                            <label>{{attrsValue.controls.name.value}}</label>
+                                            <div *ngFor="let attr of attrsValue.controls.attributeValues.controls;let i = index" formGroupName={{i}}>
+                                                <input [attr.type]="attrsValue.controls.htmlInputType.value" class="form-control" placeholder=Enter_{{attrsValue.controls.htmlInputType.value}}
+                                                    formControlName="value">
+                                                <div *ngIf="attr.controls.value.invalid && (attr.controls.value.dirty || attr.controls.value.touched)" class="alert alert-danger">
+                                                    <small class="text-danger " *ngIf="attr.controls.value.errors.required">
+                                                        Please input {{attr.controls.name.value}}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                            <div class="col-lg-4" *ngIf="!attrsValue.controls.isSpecific.value">
+                                <div class="form-group">
+                                    <div *ngIf="attrsValue.controls.htmlInputType.value=='dropdown';else elseBlock">
+                                        <label>{{attrsValue.controls.name.value}}</label>
+                                        <select class="form-control" formControlName="value">
+                                            <option value="" disabled>Choose your Options</option>
+                                            <option *ngFor="let item of attrsValue.controls.options.value" value="{{item}}">{{item}}</option>
+                                        </select>
+                                    </div>
+                                    <ng-template #elseBlock>
+                                        <div class="check" *ngIf="attrsValue.controls.htmlInputType.value=='checkbox'">
+                                            <input id="cehckbox" type="checkbox" class="form-control" placeholder="Input attribute" formControlName="value">
+                                            <label for="cehckbox">{{attrsValue.controls.name.value}}</label>
+                                        </div>
+                                        <div *ngIf="attrsValue.controls.htmlInputType.value!='checkbox'">
+                                            <label>{{attrsValue.controls.name.value}}</label>
+                                            <input [type]="attrsValue.controls.htmlInputType.value" class="form-control" placeholder=Enter_{{attrsValue.controls.htmlInputType.value}}
+                                                formControlName="value" (ngModelChange)="attrsValue.value.name=='Quantity'?createSpecificCountOfAttributesValue($event):null">
+                                            <div *ngIf="attrsValue.controls.value.invalid && (attrsValue.controls.value.dirty || attrsValue.controls.value.touched)"
+                                                class="alert alert-danger">
+                                                <small class="text-danger " *ngIf="attrsValue.controls.value.errors.required">
+                                                    Please input {{attrsValue.controls.name.value}}
+                                                </small>
+                                                <small class="text-danger" *ngIf="attrsValue.controls.name.value == 'Quantity' && attrsValue.controls.value.errors.min">
+                                                    {{attrsValue.controls.name.value}} can't be negative or zero
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </ng-container>
+
+                    </ng-container>
+                </div>
+            </div>
+            <div class="form_btns col-12">
+                <button type="submit" class="saveBtn">{{equipmentForm.value.submit ? 'Submitting...':'Submit'}} </button>
+
+            </div>
+        </form>
+    </div>
+</div>
